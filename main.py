@@ -1,6 +1,6 @@
-from helpers import *
-import engine
-import ui
+import helpers as helpers
+import engine as engine
+import ui as ui
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
@@ -32,15 +32,17 @@ def main():
     is_running = True
     
     while is_running:
-        key = key_pressed()
+        key = helpers.key_pressed()
         if key == 'q':
             is_running = False
-        if key == 'z':
-            clear_screen()
         else:
-            board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-            board = engine.put_player_on_board(board, player)
-            ui.display_board(board)
+            print(key)
+        # if key == 'z':
+        #     helpers.clear_screen()
+        # else:
+        #     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+        #     board = engine.put_player_on_board(board, player)
+        #     ui.display_board(board)
 
 
 if __name__ == '__main__':
