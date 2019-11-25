@@ -59,3 +59,16 @@ def put_player_on_board(board, player):
     board[player_y][player_x] = player_icon
 
     return board
+
+
+def change_position(pos_x, pos_y, board, player):
+    print(player["x"])
+    player_icon = player["icon"]
+    player_x = player["x"]
+    player_y = player["y"]
+    
+    player_y = player_y - pos_y
+
+    # player["x"] = player["x"] - pos_y
+    
+    return player
