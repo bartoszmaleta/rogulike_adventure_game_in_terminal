@@ -28,16 +28,43 @@ def create_player():
     return player
 
 
-def change_player_position(player, key):
+def change_player_position(board, player, key):
+    player_x = player["x"]
+    player_y = player["y"]
+    
     if key in "wasd":
         if key == "w":
-            player["y"] = player["y"] - 1
+            player_new_y_position = player["y"] - 1
+
+            if board[player_new_y_position][player_x] == "X":
+                return player
+            elif board[player_new_y_position][player_x] == ".":  
+                player["y"] = player["y"] - 1
+
         elif key == "s":
-            player["y"] = player["y"] + 1
+            player_new_y_position = player["y"] + 1
+
+            if board[player_new_y_position][player_x] == "X":
+                return player
+            elif board[player_new_y_position][player_x] == ".":
+                player["y"] = player["y"] + 1
+
         elif key == "a":
-            player["x"] = player["x"] - 1
+            player_new_x_position = player["x"] - 1
+
+            if board[player_y][player_new_x_position] == "X":
+                return player
+            elif board[player_y][player_new_x_position] == ".":
+                player["x"] = player["x"] - 1
+
         elif key == "d":
-            player["x"] = player["x"] + 1
+            player_new_x_position = player["x"] + 1
+
+            if board[player_y][player_new_x_position] == "X":
+                return player
+            elif board[player_y][player_new_x_position] == ".":
+                player["x"] = player["x"] + 1
+    
     return player
 
 
@@ -62,8 +89,8 @@ def main():
         #     helpers.clear_screen()
 
         else:
-            player = change_player_position(player, key)
             board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+            player = change_player_position(board, player, key)
             board = engine.put_player_on_board(board, player)
             ui.display_board(board)
 
