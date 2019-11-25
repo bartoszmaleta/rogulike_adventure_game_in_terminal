@@ -6,8 +6,11 @@ PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
 
-BOARD_WIDTH = 80
-BOARD_HEIGHT = 30
+# BOARD_WIDTH = 80
+# BOARD_HEIGHT = 30
+
+BOARD_WIDTH = 40
+BOARD_HEIGHT = 10
 
 
 def create_player():
@@ -28,6 +31,10 @@ def create_player():
 def main():
 
     player = create_player()
+
+    board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+    board = engine.put_player_on_board(board, player)
+    ui.display_board(board)
 
     is_running = True
     

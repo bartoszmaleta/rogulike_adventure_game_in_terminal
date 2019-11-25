@@ -6,3 +6,4 @@ __pycache__/
 
 # OS-X
 .DS_Stor
+.vscode

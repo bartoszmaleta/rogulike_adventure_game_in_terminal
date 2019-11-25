@@ -9,8 +9,37 @@ def create_board(width, height):
     Returns:
     list: Game board  
     '''
-    pass
+    board = []
+
+    # for row_index in range(height):
+    #     row = []        
+        
+    #     if row_index == 0 or row_index == (height - 1):
+    #         for i in range(20):
+    #             row.append("X")
+    #     else:
+    #         row.append("X")
+    #         for row_index in range(width - 2):
+    #             row.append(".")
+    #         row.append("X")
+    #     board.append(row)
     
+    #     return board
+    
+    for row_index in range(height):
+        row = []
+        if row_index == 0 or row_index == height - 1:
+            for i in range(width):
+                row.append("X")
+        else:
+            row.append("X")
+            for i in range(width - 2):
+                row.append(".")
+            row.append("X")
+        board.append(row)
+
+    return board
+
 
 def put_player_on_board(board, player):
     '''
@@ -23,4 +52,10 @@ def put_player_on_board(board, player):
     Returns:
     list: The game board with the player sign on it
     '''
-    pass
+    player_icon = player["icon"]
+    player_x = player["x"]
+    player_y = player["y"]
+
+    board[player_y][player_x] = player_icon
+
+    return board

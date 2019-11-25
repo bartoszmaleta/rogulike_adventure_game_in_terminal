@@ -6,4 +6,9 @@ def display_board(board):
     Returns:
     Nothing 
     '''
-    pass
+    for row in board:
+        # this one could be one line!!!!! :
+        # print(''.join(row))
+        for element in row:
+            print(element, end="")
+        print()
