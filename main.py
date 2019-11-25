@@ -28,35 +28,37 @@ def create_player():
     return player
 
 
-# def change_player_position(board, player, key):
-    # player_x = player["x"]
-    # player_y = player["y"]
-    # if board[player_y][player_x] == "X":
-        # return player
-    # if board[player_y][player_x] == ".":
-        # if key in "wasd":
-            # if key == "w":
-                # player["y"] = player["y"] - 1
-            # elif key == "s":
-                # player["y"] = player["y"] + 1
-            # elif key == "a":
-                # player["x"] = player["x"] - 1
-            # elif key == "d":
-                # player["x"] = player["x"] + 1
-        # return player
-
-
 def change_player_position(player, key):
-    if key in "wasd":
-        if key == "w":
-            player["y"] = player["y"] - 1
-        elif key == "s":
-            player["y"] = player["y"] + 1
-        elif key == "a":
-            player["x"] = player["x"] - 1
-        elif key == "d":
-            player["x"] = player["x"] + 1
-    return player
+    board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+    
+    player_x = player["x"]
+    player_y = player["y"]
+    if board[player_y][player_x] == "X":
+        return player
+    if board[player_y][player_x] == ".":
+        if key in "wasd":
+            if key == "w":
+                player["y"] = player["y"] - 1
+            elif key == "s":
+                player["y"] = player["y"] + 1
+            elif key == "a":
+                player["x"] = player["x"] - 1
+            elif key == "d":
+                player["x"] = player["x"] + 1
+        return player
+
+
+# def change_player_position(player, key):
+    # if key in "wasd":
+        # if key == "w":
+            # player["y"] = player["y"] - 1
+        # elif key == "s":
+            # player["y"] = player["y"] + 1
+        # elif key == "a":
+            # player["x"] = player["x"] - 1
+        # elif key == "d":
+            # player["x"] = player["x"] + 1
+    # return player
 
 
 def main():

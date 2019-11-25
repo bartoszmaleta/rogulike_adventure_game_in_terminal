@@ -58,12 +58,11 @@ def put_player_on_board(board, player):
     if board[player_y][player_x] == "X":
         return player
     if board[player_y][player_x] == ".":
-        pass
 
-    player_icon = player["icon"]
-    player_x = player["x"]
-    player_y = player["y"]
+        player_icon = player["icon"]
+        player_x = player["x"]
+        player_y = player["y"]
 
-    board[player_y][player_x] = player_icon
+        board[player_y][player_x] = player_icon
 
-    return board
+        return board
