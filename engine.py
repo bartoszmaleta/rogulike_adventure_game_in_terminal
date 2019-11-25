@@ -10,21 +10,6 @@ def create_board(width, height):
     list: Game board  
     '''
     board = []
-
-    # for row_index in range(height):
-    #     row = []        
-        
-    #     if row_index == 0 or row_index == (height - 1):
-    #         for i in range(20):
-    #             row.append("X")
-    #     else:
-    #         row.append("X")
-    #         for row_index in range(width - 2):
-    #             row.append(".")
-    #         row.append("X")
-    #     board.append(row)
-    
-    #     return board
     
     for row_index in range(height):
         row = []
@@ -61,14 +46,21 @@ def put_player_on_board(board, player):
     return board
 
 
-# def change_position(pos_x, pos_y, board, player):
-#     print(player["x"])
-#     player_icon = player["icon"]
-#     player_x = player["x"]
-#     player_y = player["y"]
+def create_board_out_of_file(file_name):
+    myFile = open(file_name, "r+")
+    myLines = list(myFile)
+    myFile.close()
+    # print(len(myLines))
+    # print(myLines)
     
-#     player_y = player_y - pos_y
+    board2 = []
+    one_line_list = []
+    counter = 0
+    for line in myLines:
+        for character in line:
+            one_line_list.append(character)
 
-#     # player["x"] = player["x"] - pos_y
-    
-#     return player
+        counter += 1
+        board2.append(line)
+    board = []
+    board.append(board2)
