@@ -52,6 +52,14 @@ def put_player_on_board(board, player):
     Returns:
     list: The game board with the player sign on it
     '''
+    player_x = player["x"]
+    player_y = player["y"]
+    
+    if board[player_y][player_x] == "X":
+        return player
+    if board[player_y][player_x] == ".":
+        pass
+
     player_icon = player["icon"]
     player_x = player["x"]
     player_y = player["y"]
@@ -59,16 +67,3 @@ def put_player_on_board(board, player):
     board[player_y][player_x] = player_icon
 
     return board
-
-
-def change_position(pos_x, pos_y, board, player):
-    print(player["x"])
-    player_icon = player["icon"]
-    player_x = player["x"]
-    player_y = player["y"]
-    
-    player_y = player_y - pos_y
-
-    # player["x"] = player["x"] - pos_y
-    
-    return player
