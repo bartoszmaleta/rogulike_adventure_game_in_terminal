@@ -28,13 +28,26 @@ def create_player():
     return player
 
 
+def change_player_position(player, key):
+    if key in "wasd":
+        if key == "w":
+            player["y"] = player["y"] - 1
+        elif key == "s":
+            player["y"] = player["y"] + 1
+        elif key == "a":
+            player["x"] = player["x"] - 1
+        elif key == "d":
+            player["x"] = player["x"] + 1
+    return player
+
+
 def main():
 
     player = create_player()
 
-    board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-    board = engine.put_player_on_board(board, player)
-    ui.display_board(board)
+    # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+    # board = engine.put_player_on_board(board, player)
+    # ui.display_board(board)
 
     is_running = True
     
@@ -42,14 +55,17 @@ def main():
         key = helpers.key_pressed()
         if key == 'q':
             is_running = False
-        else:
-            print(key)
+
+        # else:
+        #     print(key)
         # if key == 'z':
         #     helpers.clear_screen()
-        # else:
-        #     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-        #     board = engine.put_player_on_board(board, player)
-        #     ui.display_board(board)
+
+        else:
+            player = change_player_position(player, key)
+            board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+            board = engine.put_player_on_board(board, player)
+            ui.display_board(board)
 
 
 if __name__ == '__main__':

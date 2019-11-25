@@ -1,3 +1,6 @@
+import helpers as helpers
+
+
 def display_board(board):
     '''
     Displays complete game board on the screen
@@ -6,6 +9,8 @@ def display_board(board):
     Returns:
     Nothing 
     '''
+    helpers.clear_screen()
+        
     for row in board:
         # this one could be one line!!!!! :
         # print(''.join(row))
