@@ -41,6 +41,9 @@ def display_board(board):
             elif element == "*":
                 print('\033[1;30;40m{}'.format(element), end="")
                 print('\033[0;37;49m', end="")
+            elif element == "^":
+                print('\033[0;32;42m{}'.format(element), end="")
+                print('\033[0;37;49m', end="")
             else:
                 print('\033[0;37;49m{}'.format(element), end="")
         print()
@@ -55,6 +58,8 @@ def display_board(board):
 # \033[1;30m    -------------->  black font
 # \033[0;40m    -------------->  black background
 # \033[0;42m    -------------->  green background
+# \033[0;32;42m    -------------->  green background
+# 
 # -------------------------------------------------
 # TESTING COLOURS
 
@@ -181,3 +186,15 @@ def print_table(player_inv, order=None):
         
         print(dashes)
         print()
+
+
+# Initial commit
+
+def print_text(plain_string):
+    print(plain_string)
+
+
+def print_score_of_player(score_of_player):       # NEW, NOT USED
+    # player_score = player["score"]
+    # print('SCORE: ', player_score)
+    print('SCORE: ', score_of_player)
