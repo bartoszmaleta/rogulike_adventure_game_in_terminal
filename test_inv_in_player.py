@@ -1,92 +1,34 @@
-import helpers as helpers
-import graphics as graphics
-import os
-import time
 import operator
 
+PLAYER_ICON = '@'
+PLAYER_START_X = 4
+PLAYER_START_Y = 9
+PLAYER_INV = {'rope': 0, 'torch': 0, 'gold coin': 0, 'dagger': 0, 'arrow': 0, 'bow': 0}  
 
-def display_board(board):
+# BOARD_WIDTH = 80
+# BOARD_HEIGHT = 30
+
+BOARD_WIDTH = 40
+BOARD_HEIGHT = 10
+
+
+def create_player():
     '''
-    Displays complete game board on the screen
-
+    Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
+    Fell free to extend this dictionary!
 
     Returns:
-    Nothing
+    dictionary
     '''
-    helpers.clear_screen()
-
-    for row in board:
-        # this one could be one line!!!!! :
-        # print(''.join(row))
-        for element in row:
-            if element == "$":
-                print('\033[1;32;49m{}'.format(element), end="")
-            elif element == "O":
-                print('\033[0;34;44m{}'.format(element), end="")
-            elif element == "o":
-                print('\033[0;34;44m{}'.format(element), end="")
-            elif element == "=":
-                print('\033[0;33;49m{}'.format(element), end="")
-            elif element == "|":
-                print('\033[0;35;49m{}'.format(element), end="")
-            elif element == ".":
-                print('\033[0;32;49m{}'.format(element), end="")
-            elif element == "X":
-                print('\033[1;31;41m{}'.format(element), end="")
-                # print('\033[1;31;49m{}'.format(element), end="")
-                print('\033[0;37;49m', end="")
-            elif element == "-":
-                print('\033[1;30;40m{}'.format(element), end="")
-                print('\033[0;37;49m', end="")
-            elif element == "*":
-                print('\033[1;30;40m{}'.format(element), end="")
-                print('\033[0;37;49m', end="")
-            else:
-                print('\033[0;37;49m{}'.format(element), end="")
-        print()
-# \033[0;34m    -------------->  blue
-# \033[0;34;44m -------------->  blue + background blue
-# \033[0;33m    -------------->  yellow, almost brown
-# \033[0;35m    -------------->  magenta
-# \033[0;32m    -------------->  green
-# \033[1;31m    -------------->  red
-# \033[1;31m    -------------->  red
-# \033[1;31;41m -------------->  red + background red
-# \033[1;30m    -------------->  black font
-# \033[0;40m    -------------->  black background
-# \033[0;42m    -------------->  green background
-# -------------------------------------------------
-# TESTING COLOURS
-
-# welcome_text = '\033[1;33;49m Welcome in the HANGMAN!'
-# welcome_text_alignment = welcome_text.center(100)
-# copyrights_text = '\033[1;32;49m Michał Z., Bartosz M., Przemysław B.'
-# copyrights_alignment = copyrights_text.center(100)
-# print(welcome_text_alignment)
-# print(copyrights_alignment)
-# print('\033[0;37;49m \n')
-
-# print('\033[1;32;49m asasdas' + '\033[0;37;49m qweqweqweqwe')
-# # print('\033[1;32;49m asasdas' + '\033[0;37;49mqweqweqweqwe') without space
-# print()
+    player = {}
+    player["x"] = PLAYER_START_X
+    player["y"] = PLAYER_START_Y
+    player["icon"] = PLAYER_ICON
+    player["inventory"] = PLAYER_INV
+    return player
 
 
-def print_introduction_screen(text, title=""):
-    display_text = ""
-    for letter in text:
-        display_text += letter
-        time.sleep(0.05)
-        os.system("clear")
-        print(display_text)
-
-
-print_introduction_screen(graphics.introduction_screen())
-
-# Initial commit
-# Initial commit
-
-
-def print_table(player_inv, order=None):
+def print_table(inventory, order=None):
     space = ' '
     vertical_line = '|'
     dash = '-'
@@ -98,11 +40,11 @@ def print_table(player_inv, order=None):
     # if order is issubclass(int, str):
     #     print('asqwe')
 
-    # if order is not None:
-    #     print('Choose order. You can choose between ascending and descending.')
-    #     print("To display ascending table write: 'print_table(inv, 'count,asc')")
-    #     print("To display descending table write: 'print_table(inv, 'count,desc')")
-    #     print('\n Your inventory: \n')
+    if order is not None:
+        print('Choose order. You can choose between ascending and descending.')
+        print("To display ascending table write: 'print_table(inv, 'count,asc')")
+        print("To display descending table write: 'print_table(inv, 'count,desc')")
+        print('\n Your inventory: \n')
 
     if order is None:
         print('You does not enter order. You can choose between ascending and descending.')
@@ -181,3 +123,19 @@ def print_table(player_inv, order=None):
         
         print(dashes)
         print()
+        # display_total_number_of_inventory()        
+
+
+player = create_player()
+print()
+print(player)
+print()
+print(player["inventory"])
+print()
+player_inv = player["inventory"]
+
+print()
+print('++++++++++++++++')
+# print('No order: ')
+print()
+print_table(player_inv, 'count,desc')
