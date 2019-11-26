@@ -1,4 +1,7 @@
 import helpers as helpers
+import graphics as graphics
+import os
+import time
 
 
 def display_board(board):
@@ -36,3 +39,15 @@ def display_board(board):
 # print('\033[1;32;49m asasdas' + '\033[0;37;49m qweqweqweqwe')
 # # print('\033[1;32;49m asasdas' + '\033[0;37;49mqweqweqweqwe') without space
 # print()
+
+
+def print_introduction_screen(text, title=""):
+    display_text = ""
+    for letter in text:
+        display_text += letter
+        time.sleep(0.05)
+        os.system("clear")
+        print(display_text)
+
+
+print_introduction_screen(graphics.introduction_screen())

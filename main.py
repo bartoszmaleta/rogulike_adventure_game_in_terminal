@@ -84,7 +84,7 @@ def main():
         # else:
         #     print(key)
         # if key == 'z':
-        #     helpers.clear_screen()
+            # helpers.clear_screen()
 
         else:
             # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION
