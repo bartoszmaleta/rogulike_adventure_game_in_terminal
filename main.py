@@ -24,7 +24,6 @@ def create_player():
     '''
     Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
     Fell free to extend this dictionary!
-
     Returns:
     dictionary
     '''
@@ -150,7 +149,7 @@ def copy_board(board):      # NEW, NOT USED
 
 def main():
     FILE_PATH = "map_visual.txt"
-
+    FILE_PATH_OF_LABIRYNTH = "labirynth.txt"
     player = create_player()
     player_inv = player["inventory"]
     player_score = player["score"]       # NEW, NOT USED
@@ -168,6 +167,7 @@ def main():
         else:
             # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
             board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
+            # board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)           # TO GET LABIRYNTH VERSION, JUST UNCOMMENT THIS LINE, AND COMMENT LINE 169
             # COPY BOARD AND USE IT FURTHER                                 NEW, NOT USED
             # board = board
             # board = board_out_of_file.copy()                              NEW, NOT USED
