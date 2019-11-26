@@ -40,7 +40,13 @@ def change_player_position(board, player, key):
 
             if board[player_new_y_position][player_x] == "X":
                 return player
-            elif board[player_new_y_position][player_x] == ".":  
+            elif board[player_new_y_position][player_x] == "o":
+                return player
+            elif board[player_new_y_position][player_x] == "O":
+                return player
+            elif board[player_new_y_position][player_x] == "'":
+                return player
+            elif board[player_new_y_position][player_x] == "." or "|" or "=":  
                 player["y"] = player["y"] - 1
 
         elif key == "s":
@@ -48,7 +54,13 @@ def change_player_position(board, player, key):
 
             if board[player_new_y_position][player_x] == "X":
                 return player
-            elif board[player_new_y_position][player_x] == ".":
+            elif board[player_new_y_position][player_x] == "o":
+                return player
+            elif board[player_new_y_position][player_x] == "O":
+                return player
+            elif board[player_new_y_position][player_x] == "'":
+                return player
+            elif board[player_new_y_position][player_x] == "." or "|" or "=":
                 player["y"] = player["y"] + 1
 
         elif key == "a":
@@ -56,15 +68,28 @@ def change_player_position(board, player, key):
 
             if board[player_y][player_new_x_position] == "X":
                 return player
-            elif board[player_y][player_new_x_position] == ".":
+            elif board[player_y][player_new_x_position] == "o":
+                return player
+            elif board[player_y][player_new_x_position] == "O":
+                return player
+            elif board[player_y][player_new_x_position] == "'":
+                return player                                 
+            elif board[player_y][player_new_x_position] == "." or "|" or "=":
                 player["x"] = player["x"] - 1
 
         elif key == "d":
             player_new_x_position = player["x"] + 1
 
             if board[player_y][player_new_x_position] == "X":
+            # if board[player_y][player_new_x_position] == "X" or "o" or "O" or "-" or "/" or "\\" or "#" or "*":
                 return player
-            elif board[player_y][player_new_x_position] == ".":
+            elif board[player_y][player_new_x_position] == "o":
+                return player
+            elif board[player_y][player_new_x_position] == "O":
+                return player
+            elif board[player_y][player_new_x_position] == "'":
+                return player
+            elif board[player_y][player_new_x_position] == "." or "|" or "=":
                 player["x"] = player["x"] + 1
     
     return player

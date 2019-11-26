@@ -10,21 +10,50 @@ def display_board(board):
 
 
     Returns:
-    Nothing 
+    Nothing
     '''
     helpers.clear_screen()
-        
+
     for row in board:
         # this one could be one line!!!!! :
         # print(''.join(row))
         for element in row:
             if element == "$":
                 print('\033[1;32;49m{}'.format(element), end="")
+            elif element == "O":
+                print('\033[0;34;44m{}'.format(element), end="")
+            elif element == "o":
+                print('\033[0;34;44m{}'.format(element), end="")
+            elif element == "=":
+                print('\033[0;33;49m{}'.format(element), end="")
+            elif element == "|":
+                print('\033[0;35;49m{}'.format(element), end="")
+            elif element == ".":
+                print('\033[0;32;49m{}'.format(element), end="")
+            elif element == "X":
+                print('\033[1;31;41m{}'.format(element), end="")
+                # print('\033[1;31;49m{}'.format(element), end="")
+                print('\033[0;37;49m', end="")
+            elif element == "-":
+                print('\033[1;30;40m{}'.format(element), end="")
+                print('\033[0;37;49m', end="")
+            elif element == "*":
+                print('\033[1;30;40m{}'.format(element), end="")
+                print('\033[0;37;49m', end="")
             else:
                 print('\033[0;37;49m{}'.format(element), end="")
         print()
-
-
+# \033[0;34m    -------------->  blue
+# \033[0;34;44m -------------->  blue + background blue
+# \033[0;33m    -------------->  yellow, almost brown
+# \033[0;35m    -------------->  magenta
+# \033[0;32m    -------------->  green
+# \033[1;31m    -------------->  red
+# \033[1;31m    -------------->  red
+# \033[1;31;41m -------------->  red + background red
+# \033[1;30m    -------------->  black font
+# \033[0;40m    -------------->  black background
+# \033[0;42m    -------------->  green background
 # -------------------------------------------------
 # TESTING COLOURS
 
