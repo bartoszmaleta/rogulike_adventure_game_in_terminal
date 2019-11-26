@@ -56,15 +56,15 @@ def create_board_out_of_file(file_name):
 
     board = []
     for row_index in range(len(list_of_lists_with_lines_as_string)):
-        one_line = []
+        one_row_line = []
         list_with_one_line = list_of_lists_with_lines_as_string[row_index]
 
         INDEX_OF_FIRST_ELEMENT_OF_ITERATED_LINE = 0
 
         line = list_with_one_line[INDEX_OF_FIRST_ELEMENT_OF_ITERATED_LINE]
         for col_index in range(len(line)):
-            one_line.append(line[col_index])
-        board.append(one_line)
+            one_row_line.append(line[col_index])
+        board.append(one_row_line)
 
     return board
 
