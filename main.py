@@ -1,13 +1,15 @@
 import helpers as helpers
 import engine as engine
 import ui as ui
-import operator
+# import operator
+import inventory_controller as inventory_controller
+import chest as chest
 # import map_manager as map_manager
 
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 4
-PLAYER_START_Y = 9
+PLAYER_START_Y = 13
 PLAYER_INV = {'rope': 0, 'torch': 0, 'gold coin': 0, 'dagger': 0, 'arrow': 0, 'bow': 0}  
 
 # BOARD_WIDTH = 80
@@ -36,6 +38,7 @@ def create_player():
 def change_player_position(board, player, key):
     player_x = player["x"]
     player_y = player["y"]
+    player_inv = player["inventory"]
     
     if key in "wasd":
         if key == "w":
@@ -51,7 +54,7 @@ def change_player_position(board, player, key):
                 return player
             elif board[player_new_y_position][player_x] == "$":
                 player["y"] = player["y"] - 1
-                # heeeere!
+                inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
                 return player
             elif board[player_new_y_position][player_x] == "." or "|" or "=":  
                 player["y"] = player["y"] - 1
@@ -67,6 +70,10 @@ def change_player_position(board, player, key):
                 return player
             elif board[player_new_y_position][player_x] == "'":
                 return player
+            elif board[player_new_y_position][player_x] == "$":
+                player["y"] = player["y"] + 1
+                inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
+                return player
             elif board[player_new_y_position][player_x] == "." or "|" or "=":
                 player["y"] = player["y"] + 1
 
@@ -80,6 +87,10 @@ def change_player_position(board, player, key):
             elif board[player_y][player_new_x_position] == "O":
                 return player
             elif board[player_y][player_new_x_position] == "'":
+                return player
+            elif board[player_y][player_new_x_position] == "$":
+                player["x"] = player["x"] - 1
+                inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
                 return player
             elif board[player_y][player_new_x_position] == "." or "|" or "=":
                 player["x"] = player["x"] - 1
@@ -95,6 +106,10 @@ def change_player_position(board, player, key):
             elif board[player_y][player_new_x_position] == "O":
                 return player
             elif board[player_y][player_new_x_position] == "'":
+                return player
+            elif board[player_y][player_new_x_position] == "$":
+                player["x"] = player["x"] + 1
+                inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
                 return player
             elif board[player_y][player_new_x_position] == "." or "|" or "=":
                 player["x"] = player["x"] + 1

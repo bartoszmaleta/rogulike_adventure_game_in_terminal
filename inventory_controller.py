@@ -1,18 +1,18 @@
-dragon_loot = ['gold coin', 'dagger', 'gold coin', 'gold coin', 'ruby']
+import chest as chest
 
-inv = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}  
+# inv = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}  
 
 
 def add_to_inventory(inventory, added_items):
-    for item in dragon_loot:
-        if item in inv:
-            inv[item] += 1
+    for item in added_items:
+        if item in inventory:
+            inventory[item] += 1
         else:
-            inv[item] = 1
+            inventory[item] = 1
 
 
-print(inv)
+# print(inv)
 
-add_to_inventory(inv, dragon_loot)
+# add_to_inventory(inv, chest.chest_inventory)
 
-print(inv)
+# print(inv)
