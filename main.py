@@ -6,6 +6,18 @@ import inventory_controller as inventory_controller
 import chest as chest
 # import map_manager as map_manager
 
+# # TODO:
+#  Right now:
+#  - adding score
+#  - showing score all the time
+#  - after gaining score 10 showing 'congrats' and changing to labirynth
+#  - dollar sign disappearing after leaving spot of dollar sign
+
+# # TODO:
+#  Further:
+#  - choosing character by image of character and changing colour of "@" based on choosed character
+#  - fighting game with boss
+
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 4
