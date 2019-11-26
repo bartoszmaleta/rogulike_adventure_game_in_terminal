@@ -40,10 +40,30 @@ def put_player_on_board(board, player):
     player_icon = player["icon"]
     player_x = player["x"]
     player_y = player["y"]
-
+    
     board[player_y][player_x] = player_icon
 
     return board
+
+
+# def put_player_on_board(board, player):
+#     '''
+#     Puts the player icon on the board on player coordinates.
+
+#     Args:
+#     list: The game board
+#     dictionary: The player information - the icon and coordinates
+
+#     Returns:
+#     list: The game board with the player sign on it
+#     '''
+#     player_icon = player["icon"]
+#     player_x = player["x"]
+#     player_y = player["y"]
+    
+#     board[player_y][player_x] = player_icon
+
+#     return board
 
 
 def create_board_out_of_file(file_name):
@@ -65,26 +85,12 @@ def create_board_out_of_file(file_name):
         for col_index in range(len(line)):
             one_row_line.append(line[col_index])
         board.append(one_row_line)
-
     return board
 
 
-# TEST VERSION
-# def create_board_out_of_file(file_name):
-#     myFile = open(file_name, "r+")
-#     myLines = list(myFile)
-#     myFile.close()
-#     # print(len(myLines))
-#     # print(myLines)
-    
-#     board2 = []
-#     one_line_list = []
-#     counter = 0
-#     for line in myLines:
-#         for character in line:
-#             one_line_list.append(character)
-
-#         counter += 1
-#         board2.append(line)
-#     board = []
-#     board.append(board2)
+def adding_score(scores_of_player, number_of_points_to_add):       # NEW, NOT USED
+    # player_score = player["score"]
+    # player_score += number_of_points_to_add
+    scores_of_player += number_of_points_to_add
+    print(scores_of_player)
+    return scores_of_player
