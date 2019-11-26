@@ -1,5 +1,5 @@
 import helpers as helpers
-
+from graphics import *
 
 def display_board(board):
     '''
@@ -17,3 +17,16 @@ def display_board(board):
         for element in row:
             print(element, end="")
         print()
+
+
+
+def print_introduction_screen(text, title=""):
+    display_text = ""
+    for letter in text:
+        display_text += letter
+        sleep(0.05)
+        system("clear")
+        print(display_text)
+
+
+print_introduction_screen(introduction_screen())
