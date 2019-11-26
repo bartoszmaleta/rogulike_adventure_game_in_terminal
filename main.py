@@ -1,6 +1,8 @@
 import helpers as helpers
 import engine as engine
 import ui as ui
+# import map_manager as map_manager
+
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
@@ -69,12 +71,8 @@ def change_player_position(board, player, key):
 
 
 def main():
-
+    FILE_PATH = "map.txt"
     player = create_player()
-
-    # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-    # board = engine.put_player_on_board(board, player)
-    # ui.display_board(board)
 
     is_running = True
     
@@ -83,13 +81,9 @@ def main():
         if key == 'q':
             is_running = False
 
-        # else:
-        #     print(key)
-        # if key == 'z':
-        #     helpers.clear_screen()
-
         else:
-            board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+            board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION
+            # board = engine.create_board_out_of_file(FILE_PATH)
             player = change_player_position(board, player, key)
             board = engine.put_player_on_board(board, player)
             ui.display_board(board)
