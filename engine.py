@@ -47,20 +47,44 @@ def put_player_on_board(board, player):
 
 
 def create_board_out_of_file(file_name):
-    myFile = open(file_name, "r+")
-    myLines = list(myFile)
-    myFile.close()
-    # print(len(myLines))
-    # print(myLines)
-    
-    board2 = []
-    one_line_list = []
-    counter = 0
-    for line in myLines:
-        for character in line:
-            one_line_list.append(character)
+    # file_name = 'map.txt'
+    list_of_lists_with_lines_as_string = []                                               # Create an empty list for the main array
+    # for line in open('map2.csv'):      # both works                                     # Open the file and read all the lines
+    for line_in_string in open(file_name):                                                # Open the file and read all the lines
+        line_without_next_line = line_in_string.rstrip()                                  # Strip the \n from each line
+        list_of_lists_with_lines_as_string.append(line_without_next_line.split(','))      # Split each line into a list and add it to the Multidimensional array
 
-        counter += 1
-        board2.append(line)
     board = []
-    board.append(board2)
+    for row_index in range(len(list_of_lists_with_lines_as_string)):
+        one_line = []
+        list_with_one_line = list_of_lists_with_lines_as_string[row_index]
+
+        INDEX_OF_FIRST_ELEMENT_OF_ITERATED_LINE = 0
+
+        line = list_with_one_line[INDEX_OF_FIRST_ELEMENT_OF_ITERATED_LINE]
+        for col_index in range(len(line)):
+            one_line.append(line[col_index])
+        board.append(one_line)
+
+    return board
+
+
+# TEST VERSION
+# def create_board_out_of_file(file_name):
+#     myFile = open(file_name, "r+")
+#     myLines = list(myFile)
+#     myFile.close()
+#     # print(len(myLines))
+#     # print(myLines)
+    
+#     board2 = []
+#     one_line_list = []
+#     counter = 0
+#     for line in myLines:
+#         for character in line:
+#             one_line_list.append(character)
+
+#         counter += 1
+#         board2.append(line)
+#     board = []
+#     board.append(board2)
