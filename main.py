@@ -5,8 +5,8 @@ import ui as ui
 
 
 PLAYER_ICON = '@'
-PLAYER_START_X = 3
-PLAYER_START_Y = 3
+PLAYER_START_X = 4
+PLAYER_START_Y = 9
 
 # BOARD_WIDTH = 80
 # BOARD_HEIGHT = 30
@@ -71,7 +71,7 @@ def change_player_position(board, player, key):
 
 
 def main():
-    FILE_PATH = "map.txt"
+    FILE_PATH = "map_visual.txt"
     player = create_player()
 
     is_running = True
@@ -80,11 +80,6 @@ def main():
         key = helpers.key_pressed()
         if key == 'q':
             is_running = False
-
-        # else:
-        #     print(key)
-        # if key == 'z':
-            # helpers.clear_screen()
 
         else:
             # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION
