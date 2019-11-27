@@ -76,6 +76,8 @@ def change_player_position(board, player, key, PLAYER_SCORE):
                 player["y"] = player["y"] - 1
                 if board[player_old_y_position][player_x] == "$":
                     board[player_old_y_position][player_x] = "."
+                elif board[player_old_y_position][player_x] == "^":
+                    PLAYER_SCORE += 10
                 return player, board, PLAYER_SCORE
             return player, board, PLAYER_SCORE
 
@@ -100,7 +102,9 @@ def change_player_position(board, player, key, PLAYER_SCORE):
                 player["y"] = player["y"] + 1
                 if board[player_old_y_position][player_x] == "$":
                     board[player_old_y_position][player_x] = "."
-                return player, board, PLAYER_SCORE
+                elif board[player_old_y_position][player_x] == "^":
+                    PLAYER_SCORE += 10
+                return player, board, PLAYER_SCORE                
             return player, board, PLAYER_SCORE
 
         elif key == "a":
@@ -124,6 +128,8 @@ def change_player_position(board, player, key, PLAYER_SCORE):
                 player["x"] = player["x"] - 1
                 if board[player_y][player_old_x_position] == '$':
                     board[player_y][player_old_x_position] = '.'
+                elif board[player_y][player_old_x_position] == "^":
+                    PLAYER_SCORE += 10
                 return player, board, PLAYER_SCORE
             return player, board, PLAYER_SCORE
 
@@ -149,6 +155,8 @@ def change_player_position(board, player, key, PLAYER_SCORE):
                 player["x"] = player["x"] + 1
                 if board[player_y][player_old_x_position] == '$':
                     board[player_y][player_old_x_position] = '.'
+                elif board[player_y][player_old_x_position] == "^":
+                    PLAYER_SCORE += 10
                 return player, board, PLAYER_SCORE
             return player, board, PLAYER_SCORE
 
@@ -170,16 +178,16 @@ def main():
     # PLAYER_SCORE += 1
     # print(PLAYER_SCORE)
 
-    choosen_character_number = ui.class_selection_screen()
+    # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
+    # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
+
+    # choosen_character_number = ui.class_selection_screen()
 
     FILE_PATH = "map_visual.txt"
-    FILE_PATH_OF_LABIRYNTH = "labirynth.txt"
+    FILE_PATH_OF_LABIRYNTH = "labirynth.txt"       
+    # FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       # "labirynth2.txt" to shortcut to exit
     player = create_player()
     player_inv = player["inventory"]
-    # player_score = player["score"]       # NEW, NOT USED
-    # print(player_score)       # NEW, NOT USED
-    # print(type(player_score))       # NEW, NOT USED
-    # board_out_of_file = engine.create_board_out_of_file(FILE_PATH)        # NEW, NOT USED
     is_running = True
 
     # to show game without pressing key
@@ -188,25 +196,56 @@ def main():
     
     # board = copy_board(board_out_of_file)       # NEW, NOT USED
     while is_running:
-        key = helpers.key_pressed()
-        if key == 'q':
+        input_ask = input('Do you want to start a game? (y/n): ')
+
+        if input_ask == 'q':
             is_running = False
 
         else:
-            # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
-            board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
-            # board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)           # TO GET LABIRYNTH VERSION, JUST UNCOMMENT THIS LINE, AND COMMENT LINE 169
-            # COPY BOARD AND USE IT FURTHER                                 NEW, NOT USED
-            # board = board
-            # board = board_out_of_file.copy()                              NEW, NOT USED
-            # player = change_player_position(board, player, key)           # without second return!!!
-            player, board, PLAYER_SCORE  = change_player_position(board, player, key, PLAYER_SCORE)
-            board = engine.put_player_on_board(board, player)
-            ui.display_board(board)
-            ui.print_table(player_inv, 'count,desc')
-            # print('score : ', PLAYER_SCORE)       # NEW, NOT USED
-            # print('score : ', player_score)       # NEW, NOT USED
-            ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
+            key = helpers.key_pressed()
+            if key == 'q':
+                is_running = False
+            else:
+                is_running_first_lvl = True
+                while is_running_first_lvl:
+                    key = helpers.key_pressed()
+                    if key == 'q':
+                        is_running = False
+                    else:
+                        if PLAYER_SCORE < 2:
+                            # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
+                            # --------------------------------
+                            # COPY BOARD AND USE IT FURTHER                                 NEW, NOT USED
+                            # board = board
+                            # board = board_out_of_file.copy()                              NEW, NOT USED
+                            # --------------------------------
+                            board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
+                            # board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)           # TO GET LABIRYNTH VERSION, JUST UNCOMMENT THIS LINE, AND COMMENT LINE 169
+                            player, board, PLAYER_SCORE  = change_player_position(board, player, key, PLAYER_SCORE)
+                            board = engine.put_player_on_board(board, player)
+                            ui.display_board(board)
+                            ui.print_table(player_inv, 'count,desc')
+                            ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
+                        else:
+                            is_running_first_lvl = False
+
+                is_running_second_lvl = True
+                while is_running_second_lvl:
+                    key = helpers.key_pressed()
+                    if key == 'q':
+                        is_running = False
+                    else:                    
+                        if PLAYER_SCORE < 4:
+                            board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)
+                            player, board, PLAYER_SCORE = change_player_position(board, player, key, PLAYER_SCORE)
+                            board = engine.put_player_on_board(board, player)
+                            ui.display_board(board)
+                            ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
+                            # ui.print_table(player_inv, 'count,desc')          # dont know if in this should show inventory!!!
+                        else:
+                            is_running_second_lvl = False
+                
+                ui.print_text('You win')
 
 
 if __name__ == '__main__':
