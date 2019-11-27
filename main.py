@@ -26,7 +26,7 @@ import copy
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 4
-PLAYER_START_Y = 13
+PLAYER_START_Y = 12
 PLAYER_INV = {'rope': 0, 'torch': 0, 'gold coin': 0, 'dagger': 0, 'arrow': 0, 'bow': 0}
 PLAYER_SCORE = 0
 
@@ -155,10 +155,28 @@ def change_player_position(board, player, key, PLAYER_SCORE):
                 inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
                 PLAYER_SCORE += 1
                 return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "." or "|" or "=":
+            elif board[player_y][player_new_x_position] == ".":
                 player["x"] = player["x"] + 1
                 if board[player_y][player_old_x_position] == '$':
                     board[player_y][player_old_x_position] = '.'
+                elif board[player_y][player_old_x_position] == '@':
+                    board[player_y][player_old_x_position] = '.'
+                elif board[player_y][player_old_x_position] == "^":
+                    PLAYER_SCORE += 10
+                return player, board, PLAYER_SCORE
+            elif board[player_y][player_new_x_position] == "|":
+                player["x"] = player["x"] + 1
+                if board[player_y][player_old_x_position] == '$':
+                    board[player_y][player_old_x_position] = '.'
+                elif board[player_y][player_old_x_position] == "^":
+                    PLAYER_SCORE += 10
+                return player, board, PLAYER_SCORE
+            elif board[player_y][player_new_x_position] == "=":
+                player["x"] = player["x"] + 1
+                if board[player_y][player_old_x_position] == '$':
+                    board[player_y][player_old_x_position] = '.'
+                elif board[player_y][player_old_x_position] == '|':
+                    board[player_y][player_old_x_position] = '.'        # here change to when there will be copy_board
                 elif board[player_y][player_old_x_position] == "^":
                     PLAYER_SCORE += 10
                 return player, board, PLAYER_SCORE
@@ -199,9 +217,13 @@ def main():
     player_inv = player["inventory"]
     is_running = True
 
+    board_from_file = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
+    # >>> b = copy.deepcopy(a)
+    
     # to show game without pressing key
     # board = engine.create_board_out_of_file(FILE_PATH)
     # ui.display_board(board)
+    board = copy.deepcopy(board_from_file) 
     
     # board = copy_board(board_out_of_file)       # NEW, NOT USED
     while is_running:
@@ -228,8 +250,8 @@ def main():
                             # board = board
                             # board = board_out_of_file.copy()                              NEW, NOT USED
                             # --------------------------------
-                            board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
                             # board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)           # TO GET LABIRYNTH VERSION, JUST UNCOMMENT THIS LINE, AND COMMENT LINE 169
+                            # board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
                             player, board, PLAYER_SCORE  = change_player_position(board, player, key, PLAYER_SCORE)
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
