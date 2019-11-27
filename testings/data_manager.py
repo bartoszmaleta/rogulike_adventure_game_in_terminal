@@ -1,5 +1,9 @@
 # Do not modify this file
+import engine as engine
+import ui as ui
+
 FILE_PATH = 'inventory.csv'
+FILE_PATH_OF_MAP_FIRST = "map_visual.txt"
 
 
 def get_table_from_file(file_name):
@@ -39,3 +43,21 @@ def write_table_to_file(file_name, table):
 table = get_table_from_file(FILE_PATH)
 
 print(table)
+
+board = get_table_from_file(FILE_PATH_OF_MAP_FIRST)
+print(board)
+
+for line in board:
+    print(line)
+
+board_copied = board.copy()
+
+ui.display_board(board_copied)
+
+# boardie = engine.create_board_out_of_file(map_first)
+
+# ui.display_board(board)
+
+# board[3][9] = '%'
+
+# ui.display_board(board)

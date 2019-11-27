@@ -1,0 +1,1 @@
+chest_inventory = ['gold coin', 'dagger', 'gold coin', 'gold coin', 'ruby']
