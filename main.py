@@ -161,7 +161,7 @@ def copy_board(board):      # NEW, NOT USED
 
 
 def main():
-    ui.print_introduction_screen(graphics.introduction_screen())
+    ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
     ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
 
     choosen_character_number = ui.class_selection_screen()

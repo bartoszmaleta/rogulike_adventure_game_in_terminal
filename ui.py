@@ -97,7 +97,7 @@ def show_wizard_info():
     info = "jakis asciiart\njakis info o wizard tutaj"
     print_character_info(asciiart, info)
 
-def print_introduction_screen(text, title="", speed=0.05):
+def print_introduction_screen(text, speed=0.05):
     display_text = ""
     for letter in text:
         display_text += letter
@@ -128,7 +128,7 @@ def class_selection_screen():
     else:
         class_selection_screen()
 
-print_introduction_screen(graphics.introduction_screen())  # to main
+# print_introduction_screen(graphics.introduction_screen())  # to main
 
 # Initial commit
 # Initial commit
