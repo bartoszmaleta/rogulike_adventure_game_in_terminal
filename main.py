@@ -1,6 +1,7 @@
 import helpers as helpers
 import engine as engine
 import ui as ui
+import graphics as graphics
 # import operator
 import inventory_controller as inventory_controller
 import chest as chest
@@ -160,10 +161,17 @@ def copy_board(board):      # NEW, NOT USED
 
 
 def main():
+
     PLAYER_SCORE = 0
-    print(PLAYER_SCORE)
+    # print(PLAYER_SCORE)
     # PLAYER_SCORE += 1
     # print(PLAYER_SCORE)
+
+    ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
+    ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
+
+    choosen_character_number = ui.class_selection_screen()
+
     FILE_PATH = "map_visual.txt"
     FILE_PATH_OF_LABIRYNTH = "labirynth.txt"
     player = create_player()
@@ -173,8 +181,12 @@ def main():
     # print(type(player_score))       # NEW, NOT USED
     # board_out_of_file = engine.create_board_out_of_file(FILE_PATH)        # NEW, NOT USED
     is_running = True
-    # board = copy_board(board_out_of_file)       # NEW, NOT USED
 
+    # to show game without pressing key
+    # board = engine.create_board_out_of_file(FILE_PATH)
+    # ui.display_board(board)
+    
+    # board = copy_board(board_out_of_file)       # NEW, NOT USED
     while is_running:
         key = helpers.key_pressed()
         if key == 'q':
