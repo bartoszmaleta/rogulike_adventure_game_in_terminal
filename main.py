@@ -1,6 +1,7 @@
 import helpers as helpers
 import engine as engine
 import ui as ui
+import graphics as graphics
 # import map_manager as map_manager
 
 
@@ -96,11 +97,18 @@ def change_player_position(board, player, key):
 
 
 def main():
+    ui.print_introduction_screen(graphics.introduction_screen())
+    ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
+
+    choosen_character_number = ui.class_selection_screen()
+
     FILE_PATH = "map_visual.txt"
     player = create_player()
 
     is_running = True
-    
+
+    board = engine.create_board_out_of_file(FILE_PATH)
+    ui.display_board(board)
     while is_running:
         key = helpers.key_pressed()
         if key == 'q':
