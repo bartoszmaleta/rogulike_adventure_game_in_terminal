@@ -6,6 +6,7 @@ import graphics as graphics
 import inventory_controller as inventory_controller
 import chest as chest
 import time
+import copy
 # import map_manager as map_manager
 
 # # TODO:
@@ -171,6 +172,14 @@ def copy_board(board):      # NEW, NOT USED
     return board
 
 
+def const_position(player, player_x_position, player_y_position):
+
+    player["x"] = player_x_position
+    player["y"] = player_y_position
+
+    return player
+
+
 def main():
 
     # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
@@ -179,9 +188,6 @@ def main():
     # print(PLAYER_SCORE)
     # PLAYER_SCORE += 1
     # print(PLAYER_SCORE)
-
-    # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
-    # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
 
     # choosen_character_number = ui.class_selection_screen()
     PLAYER_SCORE = 0
@@ -233,6 +239,10 @@ def main():
                             is_running_first_lvl = False
 
                 is_running_second_lvl = True
+                # position of player in second lvl:
+                PLAYER_START_X = 6
+                PLAYER_START_Y = 15
+                player = const_position(player, PLAYER_START_X, PLAYER_START_Y)                
                 while is_running_second_lvl:
                     key = helpers.key_pressed()
                     if key == 'q':
@@ -244,7 +254,7 @@ def main():
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
                             ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
-                            # ui.print_table(player_inv, 'count,desc')          # dont know if in this should show inventory!!!
+                            # ui.print_table(player_inv, 'count,desc')          # dont know if in this lvl should show inventory!!!
                         else:
                             is_running_second_lvl = False
                 
