@@ -5,22 +5,19 @@ import graphics as graphics
 # import operator
 import inventory_controller as inventory_controller
 import chest as chest
-import time
 # import map_manager as map_manager
 
 # # TODO:
 #  Right now:
-#  - adding score                                                                   DONE
-#  - showing score all the time                                                     DONE
-#  - after gaining score 10 showing 'congrats' and changing to labirynth            DONE
-#  - dollar sign disappearing after leaving spot of dollar sign                     NOT DONE
-#  - constant position in new level!                                                NOT DONE
+#  - adding score
+#  - showing score all the time
+#  - after gaining score 10 showing 'congrats' and changing to labirynth
+#  - dollar sign disappearing after leaving spot of dollar sign
 
 # # TODO:
 #  Further:
 #  - choosing character by image of character and changing colour of "@" based on choosed character
 #  - fighting game with boss
-#  - ifinite game
 
 
 PLAYER_ICON = '@'
@@ -173,9 +170,7 @@ def copy_board(board):      # NEW, NOT USED
 
 def main():
 
-    # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
-    # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
-
+    # PLAYER_SCORE = 0
     # print(PLAYER_SCORE)
     # PLAYER_SCORE += 1
     # print(PLAYER_SCORE)
@@ -184,10 +179,9 @@ def main():
     # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
 
     # choosen_character_number = ui.class_selection_screen()
-    PLAYER_SCORE = 0
 
     FILE_PATH = "map_visual.txt"
-    FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
+    FILE_PATH_OF_LABIRYNTH = "labirynth.txt"       
     # FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       # "labirynth2.txt" to shortcut to exit
     player = create_player()
     player_inv = player["inventory"]
@@ -200,7 +194,7 @@ def main():
     # board = copy_board(board_out_of_file)       # NEW, NOT USED
     while is_running:
         input_ask = input('Do you want to start a game? (y/n): ')
-
+        PLAYER_SCORE = 0
         if input_ask == 'q':
             is_running = False
 
@@ -248,10 +242,7 @@ def main():
                         else:
                             is_running_second_lvl = False
                 
-                # PLAYER_SCORE = 0
                 ui.print_text('You win')
-                # time.sleep(2)
-                # continue
 
 
 if __name__ == '__main__':
