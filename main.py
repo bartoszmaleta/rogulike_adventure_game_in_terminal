@@ -15,7 +15,7 @@ import copy
 #  - showing score all the time                                                     DONE
 #  - after gaining score 10 showing 'congrats' and changing to labirynth            DONE
 #  - dollar sign disappearing after leaving spot of dollar sign                     NOT DONE
-#  - constant position in new level!                                                NOT DONE
+#  - constant position in new level!                                                DONE
 
 # # TODO:
 #  Further:
