@@ -45,15 +45,14 @@ def create_player():
     player["y"] = PLAYER_START_Y
     player["icon"] = PLAYER_ICON
     player["inventory"] = PLAYER_INV
-    player["score"] = PLAYER_SCORE       # NEW, NOT USED
+    # player["score"] = PLAYER_SCORE       # NEW, NOT USED
     return player
 
 
-def change_player_position(board, player, key):
+def change_player_position(board, player, key, PLAYER_SCORE):
     player_x = player["x"]
     player_y = player["y"]
     player_inv = player["inventory"]
-    player_score = player["score"]       # NEW, NOT USED
 
     if key in "wasd":
         if key == "w":
@@ -61,72 +60,72 @@ def change_player_position(board, player, key):
             player_old_y_position = player["y"]
 
             if board[player_new_y_position][player_x] == "X":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "o":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "O":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "'":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "$":
                 player["y"] = player["y"] - 1
                 inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
-                # engine.adding_score(player_score, 2)       # NEW, NOT USED
-                player_score += 1       # NEW, NOT USED
-                player["score"] = player["score"] + 1       # NEW, NOT USED
-                return player, board
+                PLAYER_SCORE += 1
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "." or "|" or "=":
                 player["y"] = player["y"] - 1
                 if board[player_old_y_position][player_x] == "$":
                     board[player_old_y_position][player_x] = "."
-                return player, board
-            return player, board
+                return player, board, PLAYER_SCORE
+            return player, board, PLAYER_SCORE
 
         elif key == "s":
             player_new_y_position = player["y"] + 1
             player_old_y_position = player["y"]
 
             if board[player_new_y_position][player_x] == "X":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "o":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "O":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "'":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "$":
                 player["y"] = player["y"] + 1
                 inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
-                return player, board
+                PLAYER_SCORE += 1
+                return player, board, PLAYER_SCORE
             elif board[player_new_y_position][player_x] == "." or "|" or "=":
                 player["y"] = player["y"] + 1
                 if board[player_old_y_position][player_x] == "$":
                     board[player_old_y_position][player_x] = "."
-                return player, board
-            return player, board
+                return player, board, PLAYER_SCORE
+            return player, board, PLAYER_SCORE
 
         elif key == "a":
             player_new_x_position = player["x"] - 1
             player_old_x_position = player["x"]
 
             if board[player_y][player_new_x_position] == "X":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "o":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "O":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "'":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "$":
                 player["x"] = player["x"] - 1
                 inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
-                return player, board
+                PLAYER_SCORE += 1
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "." or "|" or "=":
                 player["x"] = player["x"] - 1
                 if board[player_y][player_old_x_position] == '$':
                     board[player_y][player_old_x_position] = '.'
-                return player, board
-            return player, board
+                return player, board, PLAYER_SCORE
+            return player, board, PLAYER_SCORE
 
         elif key == "d":
             player_new_x_position = player["x"] + 1
@@ -134,25 +133,26 @@ def change_player_position(board, player, key):
 
             if board[player_y][player_new_x_position] == "X":
             # if board[player_y][player_new_x_position] == "X" or "o" or "O" or "-" or "/" or "\\" or "#" or "*":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "o":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "O":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "'":
-                return player, board
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "$":
                 player["x"] = player["x"] + 1
                 inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
-                return player, board
+                PLAYER_SCORE += 1
+                return player, board, PLAYER_SCORE
             elif board[player_y][player_new_x_position] == "." or "|" or "=":
                 player["x"] = player["x"] + 1
                 if board[player_y][player_old_x_position] == '$':
                     board[player_y][player_old_x_position] = '.'
-                return player, board
-            return player, board
+                return player, board, PLAYER_SCORE
+            return player, board, PLAYER_SCORE
 
-    return player, board
+    return player, board, PLAYER_SCORE
 
 
 def copy_board(board):      # NEW, NOT USED
@@ -161,6 +161,12 @@ def copy_board(board):      # NEW, NOT USED
 
 
 def main():
+
+    PLAYER_SCORE = 0
+    # print(PLAYER_SCORE)
+    # PLAYER_SCORE += 1
+    # print(PLAYER_SCORE)
+
     ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
     ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
 
@@ -170,9 +176,9 @@ def main():
     FILE_PATH_OF_LABIRYNTH = "labirynth.txt"
     player = create_player()
     player_inv = player["inventory"]
-    player_score = player["score"]       # NEW, NOT USED
-    print(player_score)       # NEW, NOT USED
-    print(type(player_score))       # NEW, NOT USED
+    # player_score = player["score"]       # NEW, NOT USED
+    # print(player_score)       # NEW, NOT USED
+    # print(type(player_score))       # NEW, NOT USED
     # board_out_of_file = engine.create_board_out_of_file(FILE_PATH)        # NEW, NOT USED
     is_running = True
 
@@ -194,12 +200,13 @@ def main():
             # board = board
             # board = board_out_of_file.copy()                              NEW, NOT USED
             # player = change_player_position(board, player, key)           # without second return!!!
-            player, board = change_player_position(board, player, key)
+            player, board, PLAYER_SCORE  = change_player_position(board, player, key, PLAYER_SCORE)
             board = engine.put_player_on_board(board, player)
             ui.display_board(board)
             ui.print_table(player_inv, 'count,desc')
+            # print('score : ', PLAYER_SCORE)       # NEW, NOT USED
             # print('score : ', player_score)       # NEW, NOT USED
-            # ui.print_score_of_player(player_score)       # NEW, NOT USED
+            ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
 
 
 if __name__ == '__main__':
