@@ -86,7 +86,7 @@ def show_assassin_info():
     asciiart = graphics.get_assassin_asciiart()
     info ='''
     Assassin is a silent killer, he has an ability to sneak and to kill enemy out of hiding. He usually wears
-    light clothes, which are blending with the surroundings and a carries a dagger as his weapon. '''
+    light clothes, which are blending with the surroundings and a carries a dagger as a weapon. '''
     print("")
     print_character_info(asciiart, info)
 

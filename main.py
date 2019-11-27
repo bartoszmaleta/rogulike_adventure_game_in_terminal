@@ -59,215 +59,68 @@ def change_player_position(board, player, key, PLAYER_SCORE):
     player_y = player["y"]
     player_inv = player["inventory"]
 
-    if key in "wasd":
-        if key == "w":
-            player_new_y_position = player["y"] - 1
-            player_old_y_position = player["y"]
+    if key in "wsad":
+        if key == "w" or key == "s":
+            x_or_y_coord = "y"
+        elif key == "a" or key == "d":
+            x_or_y_coord = "x"
 
-            if board[player_new_y_position][player_x] == "X":
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "o":
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "O":
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "'":
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "$":
-                player["y"] = player["y"] - 1
-                inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
-                PLAYER_SCORE += 1
-                if board[player_old_y_position][player_x] == "@":
-                    board[player_old_y_position][player_x] = "."
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == ".":
-                player["y"] = player["y"] - 1
-                if board[player_old_y_position][player_x] == "$":
-                    board[player_old_y_position][player_x] = "."
-                elif board[player_old_y_position][player_x] == "@":
-                    board[player_old_y_position][player_x] = "."
-                elif board[player_old_y_position][player_x] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "|":
-                player["y"] = player["y"] - 1
-                if board[player_old_y_position][player_x] == "$":
-                    board[player_old_y_position][player_x] = "."
-                elif board[player_old_y_position][player_x] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "=":
-                player["y"] = player["y"] - 1
-                if board[player_old_y_position][player_x] == "$":
-                    board[player_old_y_position][player_x] = "."
-                elif board[player_old_y_position][player_x] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
+        if key == "w" or key == "a":
+            adjustment = -1
+        elif key == "d" or key == "s":
+            adjustment = 1
+        
+        player_new_x_or_y_position = player[x_or_y_coord] + adjustment
+        player_old_x_or_y_position = player[x_or_y_coord]
+
+        if key == "w" or key == "s":
+            new_board = board[player_new_x_or_y_position][player_x]
+            old_board = board[player_old_x_or_y_position][player_x]
+        elif key == "a" or key == "d":
+            new_board = board[player_y][player_new_x_or_y_position]
+            old_board = board[player_y][player_old_x_or_y_position]
+
+        if key == "w" or key == "s":
+            board_y = player_old_x_or_y_position
+            board_x = player_x
+        elif key == "a" or key == "d":
+            board_y = player_y
+            board_x = player_old_x_or_y_position
+
+        if new_board == "X":
             return player, board, PLAYER_SCORE
-
-        elif key == "s":
-            player_new_y_position = player["y"] + 1
-            player_old_y_position = player["y"]
-
-            if board[player_new_y_position][player_x] == "X":
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "o":
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "O":
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "'":
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == "$":
-                player["y"] = player["y"] + 1
-                inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
-                PLAYER_SCORE += 1
-                if board[player_old_y_position][player_x] == "@":
-                    board[player_old_y_position][player_x] = "."
-                return player, board, PLAYER_SCORE
-            elif board[player_new_y_position][player_x] == ".":
-                player["y"] = player["y"] + 1
-                if board[player_old_y_position][player_x] == "$":
-                    board[player_old_y_position][player_x] = "."
-                elif board[player_old_y_position][player_x] == "@":
-                    board[player_old_y_position][player_x] = "."
-                elif board[player_old_y_position][player_x] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE      
-            elif board[player_new_y_position][player_x] == "|":
-                player["y"] = player["y"] + 1
-                if board[player_old_y_position][player_x] == "$":
-                    board[player_old_y_position][player_x] = "."
-                elif board[player_old_y_position][player_x] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE 
-            elif board[player_new_y_position][player_x] == "=":
-                player["y"] = player["y"] + 1
-                if board[player_old_y_position][player_x] == "$":
-                    board[player_old_y_position][player_x] = "."
-                return player, board, PLAYER_SCORE               
-            elif board[player_new_y_position][player_x] == "^":
-                player["y"] = player["y"] + 1
+        elif new_board == "o":
+            return player, board, PLAYER_SCORE
+        elif new_board == "O":
+            return player, board, PLAYER_SCORE
+        elif new_board == "'":
+            return player, board, PLAYER_SCORE
+        elif new_board == "=":
+            return player, board, PLAYER_SCORE
+        elif new_board == "$":
+            player[x_or_y_coord] = player[x_or_y_coord] + adjustment
+            inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
+            PLAYER_SCORE += 1
+            if old_board == "@":
+                board[board_y][board_x] = "."
+            return player, board, PLAYER_SCORE
+        elif new_board == ".":
+            player[x_or_y_coord] = player[x_or_y_coord] + adjustment
+            if old_board == "$":
+                board[board_y][board_x] = "."
+            elif old_board == "@":
+                board[board_y][board_x] = "."
+            elif old_board == "^":
                 PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
             return player, board, PLAYER_SCORE
-
-        elif key == "a":
-            player_new_x_position = player["x"] - 1
-            player_old_x_position = player["x"]
-
-            if board[player_y][player_new_x_position] == "X":
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "o":
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "O":
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "'":
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "$":
-                player["x"] = player["x"] - 1
-                inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
-                PLAYER_SCORE += 1
-                if board[player_y][player_old_x_position] == "@":
-                    board[player_y][player_old_x_position] = "."                
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == ".":
-                player["x"] = player["x"] - 1
-                if board[player_y][player_old_x_position] == '$':
-                    board[player_y][player_old_x_position] = '.'
-                elif board[player_y][player_old_x_position + 2] == "=" and board[player_y - 2][player_old_x_position] == "." and board[player_y + 1][player_old_x_position] == "=":
-                    board[player_y][player_old_x_position] = "="
-                elif board[player_y][player_old_x_position + 2] == "=" and board[player_y - 2][player_old_x_position] == "." and board[player_y - 1][player_old_x_position] == "=":
-                    board[player_y][player_old_x_position] = "="
-                elif board[player_y][player_old_x_position] == "@":
-                    board[player_y][player_old_x_position] = "."
-                elif board[player_y][player_old_x_position] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "|":
-                player["x"] = player["x"] - 1
-                if board[player_y][player_old_x_position] == '$':
-                    board[player_y][player_old_x_position] = '.'
-                elif board[player_y][player_old_x_position] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "=":
-                player["x"] = player["x"] - 1
-                # if board[player_y][player_old_x_position] == '$':
-                #     board[player_y][player_old_x_position] = '.'
-                # elif board[player_y][player_old_x_position] == "^":
-                #     PLAYER_SCORE += 10
-                if board[player_y][player_old_x_position] == '$':
-                    board[player_y][player_old_x_position] = '.'
-                elif board[player_y][player_old_x_position] == '|':
-                    board[player_y][player_old_x_position] = '.'        # here change to when there will be copy_board
-                elif board[player_y][player_old_x_position] == "@" and board[player_y - 1][player_old_x_position] == "." and board[player_y - 1][player_old_x_position - 3] == "o" and board[player_y - 2][player_old_x_position + 10] == "#":
-                    board[player_y][player_old_x_position] = "."
-                elif board[player_y][player_old_x_position] == "@" and board[player_y - 1][player_old_x_position] == "." and board[player_y + 1][player_old_x_position] == "." and board[player_y - 2][player_old_x_position - 3] == "o":
-                    board[player_y][player_old_x_position] = "."
-                elif board[player_y][player_old_x_position] == "@":
-                    board[player_y][player_old_x_position] = "="
-                elif board[player_y][player_old_x_position] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
+        elif new_board == "|":
+            player[x_or_y_coord] = player[x_or_y_coord] + adjustment
+            if old_board == "$":
+                board[board_y][board_x] = "."
+            elif old_board == "^":
+                PLAYER_SCORE += 10
             return player, board, PLAYER_SCORE
-
-        elif key == "d":
-            player_new_x_position = player["x"] + 1
-            player_old_x_position = player["x"]
-
-            if board[player_y][player_new_x_position] == "X":
-            # if board[player_y][player_new_x_position] == "X" or "o" or "O" or "-" or "/" or "\\" or "#" or "*":
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "o":
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "O":
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "'":
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "$":
-                if board[player_y][player_old_x_position] == "@":
-                    board[player_y][player_old_x_position] = "."
-                player["x"] = player["x"] + 1
-                inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
-                PLAYER_SCORE += 1
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == ".":
-                player["x"] = player["x"] + 1
-                if board[player_y][player_old_x_position] == '$':
-                    board[player_y][player_old_x_position] = '.'
-                elif board[player_y][player_old_x_position - 2] == "=" and board[player_y - 2][player_old_x_position] == "." and board[player_y + 1][player_old_x_position] == "=":
-                    board[player_y][player_old_x_position] = "="
-                elif board[player_y][player_old_x_position - 2] == "=" and board[player_y - 2][player_old_x_position] == "." and board[player_y - 1][player_old_x_position] == "=":
-                    board[player_y][player_old_x_position] = "="
-                elif board[player_y][player_old_x_position] == '@':
-                    board[player_y][player_old_x_position] = '.'
-                elif board[player_y][player_old_x_position] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "|":
-                player["x"] = player["x"] + 1
-                if board[player_y][player_old_x_position] == '$':
-                    board[player_y][player_old_x_position] = '.'
-                elif board[player_y][player_old_x_position] == "^":
-                    PLAYER_SCORE += 10      # here doing
-                elif board[player_y][player_old_x_position] == "@":
-                    board[player_y][player_old_x_position] = "."
-                return player, board, PLAYER_SCORE
-            elif board[player_y][player_new_x_position] == "=":
-                player["x"] = player["x"] + 1
-                if board[player_y][player_old_x_position] == '$':
-                    board[player_y][player_old_x_position] = '.'
-                elif board[player_y][player_old_x_position] == '|':
-                    board[player_y][player_old_x_position] = '.'        # here change to when there will be copy_board
-                elif board[player_y][player_old_x_position] == "@" and board[player_y - 1][player_old_x_position] == "." and board[player_y + 1][player_old_x_position] == "o":
-                    board[player_y][player_old_x_position] = "."
-                elif board[player_y][player_old_x_position] == "@" and board[player_y - 1][player_old_x_position] == "." and board[player_y + 1][player_old_x_position] == ".":
-                    board[player_y][player_old_x_position] = "."
-                elif board[player_y][player_old_x_position] == "@":
-                    board[player_y][player_old_x_position] = "="
-                elif board[player_y][player_old_x_position] == "^":
-                    PLAYER_SCORE += 10
-                return player, board, PLAYER_SCORE
-            return player, board, PLAYER_SCORE
+        return player, board, PLAYER_SCORE
 
     return player, board, PLAYER_SCORE
 
@@ -287,14 +140,15 @@ def const_position(player, player_x_position, player_y_position):
 
 def main():
 
-    # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
-    # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
+    #ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
+    time.sleep(1)
+    #ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
 
     # print(PLAYER_SCORE)
     # PLAYER_SCORE += 1
     # print(PLAYER_SCORE)
 
-    # choosen_character_number = ui.class_selection_screen()
+    choosen_character_number = ui.class_selection_screen()
     PLAYER_SCORE = 0
 
     FILE_PATH = "map_visual.txt"
