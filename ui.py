@@ -110,6 +110,7 @@ def print_introduction_screen(text, speed=0.05):
         time.sleep(speed)
         os.system("clear")
         print(display_text)
+
     
 def class_selection_screen():
     os.system("clear")
