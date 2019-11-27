@@ -77,7 +77,7 @@ def display_board(board):
 
 def print_character_info(asciiart, info):
     print(asciiart, info)
-    # print()
+    print()
     # print_introduction_screen(info)
     print()
     input("[Enter anything to go back]: ")
@@ -87,6 +87,7 @@ def show_assassin_info():
     info ='''
     Assassin is a silent killer, he has an ability to sneak and to kill enemy out of hiding. He usually wears
     light clothes, which are blending with the surroundings and a carries a dagger as his weapon. '''
+    print("")
     print_character_info(asciiart, info)
 
 def show_warrior_info():
@@ -94,6 +95,7 @@ def show_warrior_info():
     info = '''
     Warrior is a strong, solid character, centered around strenght and physical health. On the beginning of the game, 
     warrior has more lifes than the others. Warrior often wears heavy armor alongside swords. '''
+    print("")
     print_character_info(asciiart, info)
 
 def show_wizard_info():
@@ -101,6 +103,7 @@ def show_wizard_info():
     info = '''
     Wizard is a complex character, his greatest power is his wisdom. He has an ability to spell casts and drink potions
     Wizards usually wear long robes and have magic wands as a weapon. '''
+    print("")
     print_character_info(asciiart, info)
 
 def print_introduction_screen(text, speed=0.05):
