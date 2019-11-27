@@ -7,6 +7,7 @@ import inventory_controller as inventory_controller
 import chest as chest
 import time
 import copy
+import turn_game as turn_game
 # import map_manager as map_manager
 
 # # TODO:
@@ -317,6 +318,7 @@ def main():
 
     # choosen_character_number = ui.class_selection_screen()
     PLAYER_SCORE = 0
+    HEALTH = 5
 
     FILE_PATH = "map_visual.txt"
     FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
@@ -366,13 +368,14 @@ def main():
                     else:
                         if PLAYER_SCORE < 2:
                             # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
-                            # board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)           # TO GET LABIRYNTH VERSION, JUST UNCOMMENT THIS LINE, AND COMMENT LINE 169
                             # board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
                             player, board, PLAYER_SCORE  = change_player_position(board, player, key, PLAYER_SCORE)
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
                             ui.print_table(player_inv, 'count,desc')
                             ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
+                        if HEALTH < 1:
+                            is_running_first_lvl = False
                         else:
                             is_running_first_lvl = False
 
@@ -391,15 +394,26 @@ def main():
                             player, board, PLAYER_SCORE = change_player_position(board, player, key, PLAYER_SCORE)
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
-                            ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
+                            ui.print_score_of_player(PLAYER_SCORE)       # should show????
                             # ui.print_table(player_inv, 'count,desc')          # dont know if in this lvl should show inventory!!!
                         else:
                             is_running_second_lvl = False
                 
-                # PLAYER_SCORE = 0
+                is_running_third_lvl = True
+                while is_running_third_lvl:
+                    helpers.clear_screen()
+                    # GRAPHICS WITH BOSS
+                    print('Do you want to fight the boss (y/n)')
+                    key = helpers.key_pressed()
+
+                    if key == "y":
+                        turn_game.fighting_boss()
+                    elif key == 'n':
+                        is_running_third_lvl = False
+                
+                # CREDITS
+                print(PLAYER_SCORE)
                 ui.print_text('You win')
-                # time.sleep(2)
-                # continue
 
 
 if __name__ == '__main__':
