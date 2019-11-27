@@ -75,17 +75,60 @@ def display_board(board):
 # # print('\033[1;32;49m asasdas' + '\033[0;37;49mqweqweqweqwe') without space
 # print()
 
+def print_character_info(asciiart, info):
+    print(asciiart)
+    print()
+    print_introduction_screen(info)
+    print()
+    input("[Enter anything to go back]: ")
 
-def print_introduction_screen(text, title=""):
+def show_assassin_info():
+    asciiart = graphics.get_assassin_asciiart()
+    info = "jakis asciiart\njakis info o assassin tutaj"
+    print_character_info(asciiart, info)
+
+def show_warrior_info():
+    asciiart = graphics.get_warrior_asciiart()
+    info = "jakis asciiart\njakis info o warrior tutaj"
+    print_character_info(asciiart, info)
+
+def show_wizard_info():
+    asciiart = graphics.get_wizard_asciiart()
+    info = "jakis asciiart\njakis info o wizard tutaj"
+    print_character_info(asciiart, info)
+
+def print_introduction_screen(text, title="", speed=0.05):
     display_text = ""
     for letter in text:
         display_text += letter
-        time.sleep(0.05)
+        time.sleep(speed)
         os.system("clear")
         print(display_text)
+    
+def class_selection_screen():
+    os.system("clear")
+    print(graphics.character_creation_screen())
+    choice = input("What's your choice?: ")
 
+    if choice == "1":
+        return "1"
+    elif choice == "2":
+        return "2"
+    elif choice == "3":
+        return "3"
+    elif choice == "4":
+        show_wizard_info()
+        class_selection_screen()
+    elif choice == "5":
+        show_warrior_info()
+        class_selection_screen()
+    elif choice == "6":
+        show_assassin_info()
+        class_selection_screen()
+    else:
+        class_selection_screen()
 
-print_introduction_screen(graphics.introduction_screen())
+print_introduction_screen(graphics.introduction_screen())  # to main
 
 # Initial commit
 # Initial commit
