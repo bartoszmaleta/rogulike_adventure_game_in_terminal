@@ -170,6 +170,9 @@ def copy_board(board):      # NEW, NOT USED
 
 def main():
 
+    # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
+    # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
+
     PLAYER_SCORE = 0
     # print(PLAYER_SCORE)
     # PLAYER_SCORE += 1
