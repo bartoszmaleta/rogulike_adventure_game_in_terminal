@@ -76,25 +76,31 @@ def display_board(board):
 # print()
 
 def print_character_info(asciiart, info):
-    print(asciiart)
-    print()
-    print_introduction_screen(info)
+    print(asciiart, info)
+    # print()
+    # print_introduction_screen(info)
     print()
     input("[Enter anything to go back]: ")
 
 def show_assassin_info():
     asciiart = graphics.get_assassin_asciiart()
-    info = "jakis asciiart\njakis info o assassin tutaj"
+    info ='''
+    Assassin is a silent killer, he has an ability to sneak and to kill enemy out of hiding. He usually wears
+    light clothes, which are blending with the surroundings and a carries a dagger as his weapon. '''
     print_character_info(asciiart, info)
 
 def show_warrior_info():
     asciiart = graphics.get_warrior_asciiart()
-    info = "jakis asciiart\njakis info o warrior tutaj"
+    info = '''
+    Warrior is a strong, solid character, centered around strenght and physical health. On the beginning of the game, 
+    warrior has more lifes than the others. Warrior often wears heavy armor alongside swords. '''
     print_character_info(asciiart, info)
 
 def show_wizard_info():
     asciiart = graphics.get_wizard_asciiart()
-    info = "jakis asciiart\njakis info o wizard tutaj"
+    info = '''
+    Wizard is a complex character, his greatest power is his wisdom. He has an ability to spell casts and drink potions
+    Wizards usually wear long robes and have magic wands as a weapon. '''
     print_character_info(asciiart, info)
 
 def print_introduction_screen(text, speed=0.05):
@@ -113,15 +119,15 @@ def class_selection_screen():
     if choice == "1":
         return "1"
     elif choice == "2":
-        return "2"
+        show_wizard_info()
+        class_selection_screen()
     elif choice == "3":
         return "3"
     elif choice == "4":
-        show_wizard_info()
-        class_selection_screen()
-    elif choice == "5":
         show_warrior_info()
         class_selection_screen()
+    elif choice == "5":
+        return "5"
     elif choice == "6":
         show_assassin_info()
         class_selection_screen()
