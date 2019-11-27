@@ -16,13 +16,16 @@ import copy
 #  - after gaining score 10 showing 'congrats' and changing to labirynth            DONE
 #  - dollar sign disappearing after leaving spot of dollar sign                     DONE
 #  - constant position in new level!                                                DONE
+#  - writing to file highscores                                                     NOT DONE
+#  - 
+
 
 # # TODO:
 #  Further:
 #  - choosing character by image of character and changing colour of "@" based on choosed character
 #  - fighting game with boss
 #  - ifinite game
-#  - ascii art 
+#  - ascii art                                                                                          
 
 
 PLAYER_ICON = '@'
@@ -208,6 +211,8 @@ def change_player_position(board, player, key, PLAYER_SCORE):
                 elif board[player_y][player_old_x_position] == "^":
                     PLAYER_SCORE += 10
                 return player, board, PLAYER_SCORE
+            elif board[player_y][player_new_x_position] == "\U0001F600":
+                PLAYER_SCORE += 1
             return player, board, PLAYER_SCORE
 
         elif key == "d":
@@ -267,8 +272,21 @@ def change_player_position(board, player, key, PLAYER_SCORE):
                 elif board[player_y][player_old_x_position] == "^":
                     PLAYER_SCORE += 10
                 return player, board, PLAYER_SCORE
+            elif board[player_y][player_new_x_position] == "\U0001F600":
+                PLAYER_SCORE += 1
             return player, board, PLAYER_SCORE
-
+        elif key == "i":
+            is_running_inventory = True
+            while is_running_inventory:
+                key = helpers.key_pressed()
+                
+                helpers.clear_screen()
+                ui.print_table(player_inv, 'count,desc')
+                ui.print_text('Press e for exit')
+                if key == "e":
+                    is_running_inventory = False
+                else:
+                    pass
     return player, board, PLAYER_SCORE
 
 
@@ -310,7 +328,9 @@ def main():
     # to show game without pressing key
     # board = engine.create_board_out_of_file(FILE_PATH)
     # ui.display_board(board)
-    board = copy.deepcopy(board_from_file) 
+    board = copy.deepcopy(board_from_file)
+    board[10][3] = "\U0001F600" 
+    board[10][31] = "\U0001F41F"
     
     # board = copy_board(board_out_of_file)       # NEW, NOT USED
     while is_running:
@@ -329,6 +349,17 @@ def main():
                     key = helpers.key_pressed()
                     if key == 'q':
                         is_running = False
+                    elif key == "i":
+                        is_running_inventory = True
+                        while is_running_inventory:
+                            key = helpers.key_pressed()
+                            
+                            helpers.clear_screen()
+                            ui.print_table(player_inv, 'count,desc')
+                            ui.print_text('Press e for exit')
+                            if key == "e":
+                                is_running_inventory = False
+                        
                     else:
                         if PLAYER_SCORE < 2:
                             # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
