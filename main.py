@@ -8,6 +8,7 @@ import chest as chest
 import time
 import copy
 import turn_game as turn_game
+import sys
 # import map_manager as map_manager
 
 # # TODO:
@@ -18,22 +19,25 @@ import turn_game as turn_game
 #  - dollar sign disappearing after leaving spot of dollar sign                     DONE
 #  - constant position in new level!                                                DONE
 #  - Icons of attacks in turn game                                                  NOT DONE
-#  - delete one loop                                                                NOT DONE
-#  - HEALTH                                                                         NOT DONE
-#  - case sensitive
+#  - delete one loop                                                                NOT DONE OR NOT! MAYBE ANOTHER SCREEN
+#  - HEALTH                                                                         NOT DONE, ALMOST!! NOT FOR BATTLE
+#  - Goodbye screen!!!!                                                             NOT DONE! priority
+#  - case sensitive                                                                 NOT DONE
 
 # # TODO:
 #  Further:
 #  - choosing character by image of character and changing colour of "@" based on choosed character     DONE
 #  - fighting game with boss                                                                            DONE
-#  - ifinite game                                                                                       NOT DONE
-#  - ascii art                                                                                          NOT DONE
-#  - writing to file highscores                                                                         NOT DONE
-#  - quiting the game                                                                                   NOT DONE
-#  - menu showing                                                                                       NOT DONE
+#  - ifinite game                                                                                       DONE, ALMOST! EXCEPT FIGHTING
+#  - ascii art colour                                                                                   NOT DONE
+#  - writing to file highscores                                                                         NOT DONE! priority
+#  - clean screen durign fight                                                                          NOT DONE! priority    
+#  - quiting the game from menu                                                                         NOT DONE! priority
+#  - MENU                                                                                               NOT DONE! priority
+#  - menu showing                                                                                       NOT DONE! priority
 #  - another chest to grab                                                                              NOT DONE
-#  - change appearence of inventory to beaty                                                            NOT DONE
-#  - timer                                                                                              NOT DONE
+#  - change appearence of inventory to beaty                                                            NOT DONE! priority
+#  - timer                                                                                              NOT DONE! priority
 
 
 PLAYER_START_X = 4
@@ -72,6 +76,7 @@ def change_player_position(board, player, key, PLAYER_SCORE, HEALTH):
     player_y = player["y"]
     player_inv = player["inventory"]
     player_icon = "\U0001F9D9"
+    BLAST_ICON = "\U0001F4A5"
 
     if key in "wsad":
         if key == "w" or key == "s":
@@ -140,14 +145,24 @@ def change_player_position(board, player, key, PLAYER_SCORE, HEALTH):
             elif old_player_position_on_board == "^":
                 PLAYER_SCORE += 10
             return player, board, PLAYER_SCORE, HEALTH
-
-        elif new_player_position_on_board == "\U0001F4A5":
+        elif new_player_position_on_board == BLAST_ICON:
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
             HEALTH -= 1
             if old_player_position_on_board == player_icon:
                 board[board_y][board_x] = "."
             return player, board, PLAYER_SCORE, HEALTH
         return player, board, PLAYER_SCORE, HEALTH
+    
+    elif key == "i":
+        is_running_inventory = True
+        while is_running_inventory:
+            key = helpers.key_pressed()
+            
+            helpers.clear_screen()
+            ui.print_table(player_inv, 'count,desc')
+            ui.print_text('Press e for exit')
+            if key == "e":
+                is_running_inventory = False    
 
     return player, board, PLAYER_SCORE, HEALTH
 
@@ -174,11 +189,11 @@ def main():
     # PLAYER_SCORE += 1
     # print(PLAYER_SCORE)
 
-    #choosen_character_number = graphics.choosing_character()
+    # choosen_character_number = graphics.choosing_character()
     
     choosen_character_number = ui.class_selection_screen()
     PLAYER_SCORE = 0
-    HEALTH = 5
+    HEALTH = 1
 
     FILE_PATH = "map_visual.txt"
     FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
@@ -206,8 +221,7 @@ def main():
     # ui.display_board(board)
 
     board = copy.deepcopy(board_from_file) 
-    #board[10][3] = "\U0001F4A5"
-    #board[21][21] = "\U0001F47D"
+
     board[19][13] = "\U0001F333"
     board[19][14] = "\U0001F333"
     board[19][15] = "\U0001F333"
@@ -241,47 +255,47 @@ def main():
     board[10][54] = "\U0001F4A5"
     board[17][62] = "\U0001F4A5"
     board[7][82] = "\U0001F4A5"
-    #board = copy_board(board_out_of_file)       # NEW, NOT USED
+
     while is_running:
-        input_ask = input('Do you want to start a game? (y/n): ')
+        # input_ask = input('Do you want to START a game? (y/n): ')
+        HEALTH = 1
 
-        if input_ask == 'q':
+        # if input_ask == 'q':
+        #     is_running = False
+        ui.print_text("Press any key to START! Press * to exit")
+        # else:
+        key = helpers.key_pressed()
+        if key == '*':
             is_running = False
-
         else:
-            key = helpers.key_pressed()
-            if key == 'q':
-                is_running = False
-            else:
-                is_running_first_lvl = True
-                while is_running_first_lvl:
-                    key = helpers.key_pressed()
-                    if key == 'q':
-                        is_running = False
-                    elif key == "i":
-                        is_running_inventory = True
-                        while is_running_inventory:
-                            key = helpers.key_pressed()
-                            
-                            helpers.clear_screen()
-                            ui.print_table(player_inv, 'count,desc')
-                            ui.print_text('Press e for exit')
-                            if key == "e":
-                                is_running_inventory = False
-
+            is_running_first_lvl = True
+            while is_running_first_lvl:
+                key = helpers.key_pressed()
+                if key == 'q':
+                    is_running = False
+                # elif key == "i":
+                #     is_running_inventory = True
+                #     while is_running_inventory:
+                #         key = helpers.key_pressed()
+                        
+                #         helpers.clear_screen()
+                #         ui.print_table(player_inv, 'count,desc')
+                #         ui.print_text('Press e for exit')
+                #         if key == "e":
+                #             is_running_inventory = False
+                else:
+                    if PLAYER_SCORE < 2 and HEALTH > 0:
+                        # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
+                        # board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
+                        player, board, PLAYER_SCORE, HEALTH  = change_player_position(board, player, key, PLAYER_SCORE, HEALTH)
+                        board = engine.put_player_on_board(board, player)
+                        ui.display_board(board)
+                        ui.print_table(player_inv, 'count,desc')
+                        ui.print_score_of_player(PLAYER_SCORE)       
+                        ui.display_heath(HEALTH)
                     else:
-                        if PLAYER_SCORE < 2 and HEALTH > 1:
-                            # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
-                            # board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
-                            player, board, PLAYER_SCORE, HEALTH  = change_player_position(board, player, key, PLAYER_SCORE, HEALTH)
-                            board = engine.put_player_on_board(board, player)
-                            ui.display_board(board)
-                            ui.print_table(player_inv, 'count,desc')
-                            ui.print_score_of_player(PLAYER_SCORE)       
-                            ui.display_heath(HEALTH)
-                        else:
-                            is_running_first_lvl = False
-
+                        is_running_first_lvl = False
+            if PLAYER_SCORE >= 2 and HEALTH > 0:
                 is_running_second_lvl = True
                 # position of player in second lvl:
                 PLAYER_START_X = 6
@@ -301,45 +315,52 @@ def main():
                             # ui.print_table(player_inv, 'count,desc')          # dont know if in this lvl should show inventory!!!
                         else:
                             is_running_second_lvl = False
-                
-                is_running_third_lvl = True
-                while is_running_third_lvl:
-                    helpers.clear_screen()
-                    # GRAPHICS WITH BOSS
-                    if choosen_character_number == "1":
-                        FILE_PATH_OF_WIZARD = "wizard.txt"
-                        wizard_board = engine.create_board_out_of_file(FILE_PATH_OF_WIZARD)
-                        ui.display_warrior(wizard_board)
-                    elif choosen_character_number == "3":
-                        FILE_PATH_OF_WIZARD = "warrior.txt"
-                        warrior_board = engine.create_board_out_of_file(FILE_PATH_OF_WIZARD)
-                        ui.display_warrior(warrior_board)
-                    elif choosen_character_number == "5":
-                        FILE_PATH_OF_ASSASIN = "assassin.txt"
-                        assasin_board = engine.create_board_out_of_file(FILE_PATH_OF_ASSASIN)
-                        ui.display_warrior(assasin_board)
-                    
-                    ui.print_text('Do you want to fight the boss (y/n)')
-                    key = helpers.key_pressed()
-
-                    if key == "y":
+                if PLAYER_SCORE >= 2 and HEALTH > 0:
+                    is_running_third_lvl = True
+                    while is_running_third_lvl:
                         helpers.clear_screen()
-
-                        # HOW TO PLAY                        
-                        turn_game.how_to_play()
-                        
-                        is_running_fight = True
-                        while is_running_fight:
-                            turn_game.fighting_boss(character)
-                            is_running_fight = False
-                    elif key == 'n':
+                        # GRAPHICS WITH BOSS
+                        if choosen_character_number == "1":
+                            FILE_PATH_OF_WIZARD = "wizard.txt"
+                            wizard_board = engine.create_board_out_of_file(FILE_PATH_OF_WIZARD)
+                            ui.display_warrior(wizard_board)
+                        elif choosen_character_number == "3":
+                            FILE_PATH_OF_WIZARD = "warrior.txt"
+                            warrior_board = engine.create_board_out_of_file(FILE_PATH_OF_WIZARD)
+                            ui.display_warrior(warrior_board)
+                        elif choosen_character_number == "5":
+                            FILE_PATH_OF_ASSASIN = "assassin.txt"
+                            assasin_board = engine.create_board_out_of_file(FILE_PATH_OF_ASSASIN)
+                            ui.display_warrior(assasin_board)
+                        ui.print_text('Do you want to FIGHT the boss (y/n)')
+                        key = helpers.key_pressed()
+                        if key == "y":
+                            helpers.clear_screen()
+                            # HOW TO PLAY                        
+                            turn_game.how_to_play()
+                            is_running_fight = True
+                            while is_running_fight:
+                                turn_game.fighting_boss(character, HEALTH)
+                                is_running_fight = False
+                            is_running_third_lvl
+                        elif key == 'n':
+                            is_running_third_lvl = False
                         is_running_third_lvl = False
-                    is_running_third_lvl = False
-                
-
+            if HEALTH > 1:
                 # CREDITS
                 ui.print_text('You win!!!!!!!!!!!!!!!!!!!!!!! Congrats')
                 ui.print_text("Produced by .....")
+                break
+                is_running_third_lvl = False
+                is_running_second_lvl = False
+            else:       # HEALTH < 1
+                ui.print_text("You lost")
+                input_ask = input('Do you want to START AGAIN a game? (y/n): ')
+                if input_ask == "y":
+                    is_running_third_lvl = False
+                elif input_ask == "n":
+                    ui.print_text("Good bye")
+                    sys.exit(0)                    
 
 
 if __name__ == '__main__':
