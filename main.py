@@ -31,7 +31,7 @@ import sys
 #  - ifinite game                                                                                       DONE, ALMOST! EXCEPT FIGHTING
 #  - ascii art colour                                                                                   NOT DONE
 #  - writing to file highscores                                                                         NOT DONE! priority
-#  - clean screen durign fight                                                                          NOT DONE! priority    
+#  - clean screen during fight                                                                          NOT DONE! priority    
 #  - quiting the game from menu                                                                         NOT DONE! priority
 #  - MENU                                                                                               NOT DONE! priority
 #  - menu showing                                                                                       NOT DONE! priority
@@ -167,11 +167,6 @@ def change_player_position(board, player, key, PLAYER_SCORE, HEALTH):
     return player, board, PLAYER_SCORE, HEALTH
 
 
-def copy_board(board):      # NEW, NOT USED
-    board = board.copy()
-    return board
-
-
 def const_position(player, player_x_position, player_y_position):
 
     player["x"] = player_x_position
@@ -185,15 +180,9 @@ def main():
     # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
     # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
 
-    # print(PLAYER_SCORE)
-    # PLAYER_SCORE += 1
-    # print(PLAYER_SCORE)
-
     # choosen_character_number = graphics.choosing_character()
     
     choosen_character_number = ui.class_selection_screen()
-    PLAYER_SCORE = 0
-    HEALTH = 1
 
     FILE_PATH = "map_visual.txt"
     FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
@@ -211,59 +200,19 @@ def main():
         player["icon"] = ASSASSIN_ICON
         
     player_inv = player["inventory"]
-    is_running = True
 
     board_from_file = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
-    # >>> b = copy.deepcopy(a)
-    
-    # to show game without pressing key
-    # board = engine.create_board_out_of_file(FILE_PATH)sd
-    # ui.display_board(board)
-
     board = copy.deepcopy(board_from_file) 
 
-    board[19][13] = "\U0001F333"
-    board[19][14] = "\U0001F333"
-    board[19][15] = "\U0001F333"
-    board[19][16] = "\U0001F333"
-    board[19][17] = "\U0001F333"
-    board[19][18] = "\U0001F333"
-    board[19][19] = "\U0001F333"
-    board[19][20] = "\U0001F333"
-    board[19][21] = "\U0001F333"
-    board[19][22] = "\U0001F333"
-    board[19][23] = "\U0001F333"
-    board[19][24] = "\U0001F333"
-    board[19][25] = "\U0001F333"
-    board[19][26] = "\U0001F333"
-    board[19][27] = "\U0001F333"
-    board[19][28] = "\U0001F333"
-    board[19][29] = "\U0001F333"
-    board[19][30] = "\U0001F333"
-    board[19][31] = "\U0001F333"
-    board[19][32] = "\U0001F333"
-    board[19][33] = "\U0001F333"
-    board[19][34] = "\U0001F333"
-    board[19][35] = "\U0001F333"
-    board[19][36] = "\U0001F333"
-    board[19][37] = "\U0001F333"
-    board[19][38] = "\U0001F333" 
-    board[2][60] = "\U0001F319"
-    board[8][16] = "\U0001F4A5"
-    board[17][7] = "\U0001F4A5"
-    board[9][49] = "\U0001F4A5"
-    board[10][54] = "\U0001F4A5"
-    board[17][62] = "\U0001F4A5"
-    board[7][82] = "\U0001F4A5"
+    ui.put_emoji_on_board(board)
 
+    is_running = True
     while is_running:
         # input_ask = input('Do you want to START a game? (y/n): ')
         HEALTH = 1
+        PLAYER_SCORE = 0
 
-        # if input_ask == 'q':
-        #     is_running = False
         ui.print_text("Press any key to START! Press * to exit")
-        # else:
         key = helpers.key_pressed()
         if key == '*':
             is_running = False
@@ -273,16 +222,6 @@ def main():
                 key = helpers.key_pressed()
                 if key == 'q':
                     is_running = False
-                # elif key == "i":
-                #     is_running_inventory = True
-                #     while is_running_inventory:
-                #         key = helpers.key_pressed()
-                        
-                #         helpers.clear_screen()
-                #         ui.print_table(player_inv, 'count,desc')
-                #         ui.print_text('Press e for exit')
-                #         if key == "e":
-                #             is_running_inventory = False
                 else:
                     if PLAYER_SCORE < 2 and HEALTH > 0:
                         # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
@@ -347,8 +286,8 @@ def main():
                             is_running_third_lvl = False
                         is_running_third_lvl = False
             if HEALTH > 1:
-                # CREDITS
                 ui.print_text('You win!!!!!!!!!!!!!!!!!!!!!!! Congrats')
+                # CREDITS
                 ui.print_text("Produced by .....")
                 break
                 is_running_third_lvl = False
