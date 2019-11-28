@@ -13,28 +13,19 @@ import sys
 
 # # TODO:
 #  Right now:
-#  - adding score                                                                   DONE
-#  - showing score all the time                                                     DONE
-#  - after gaining score 10 showing 'congrats' and changing to labirynth            DONE
-#  - dollar sign disappearing after leaving spot of dollar sign                     DONE
-#  - constant position in new level!                                                DONE
+
 #  - Icons of attacks in turn game                                                  NOT DONE
 #  - delete one loop                                                                NOT DONE OR NOT! MAYBE ANOTHER SCREEN
-#  - HEALTH                                                                         NOT DONE, ALMOST!! NOT FOR BATTLE
+#  - HEALTH                                                                         DONE, ALMOST!! NOT FOR BATTLE
 #  - Goodbye screen!!!!                                                             NOT DONE! priority
 #  - case sensitive                                                                 NOT DONE
 
 # # TODO:
 #  Further:
-#  - choosing character by image of character and changing colour of "@" based on choosed character     DONE
-#  - fighting game with boss                                                                            DONE
 #  - ifinite game                                                                                       DONE, ALMOST! EXCEPT FIGHTING
 #  - ascii art colour                                                                                   NOT DONE
 #  - writing to file highscores                                                                         NOT DONE! priority
 #  - clean screen during fight                                                                          NOT DONE! priority    
-#  - quiting the game from menu                                                                         NOT DONE! priority
-#  - MENU                                                                                               DONE
-#  - menu graphics                                                                                      NOT DONE! priority
 #  - another chest to grab                                                                              NOT DONE
 #  - change appearence of inventory to beaty                                                            NOT DONE! priority
 #  - timer                                                                                              NOT DONE! priority
@@ -169,11 +160,12 @@ def action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH):
             helpers.clear_screen()
             handle_menu()
             try:
-                inputs = ui.get_inputs(["Please enter a number: "], "")
-                option = inputs[0]
-                if option == "1":
+                # inputs = ui.get_inputs(["Please enter a number: "], "")
+                # option = inputs[0]
+                key = helpers.key_pressed()
+                if key == "1":
                     is_running_menu = False
-                elif option == "0":
+                elif key == "0":
                     sys.exit(0)
                 else:
                     raise KeyError("There is no such option.")                
@@ -185,14 +177,12 @@ def action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH):
 
 def handle_menu():
     options = ["Back to the game"]
+    menu_title = ''
     
-    menu_title = "Main menu"
-    menu_title = ui.return_headline_for_menu_title_(menu_title)
     ui.print_menu(menu_title, options, "Exit program")
 
 
 def const_position(player, player_x_position, player_y_position):
-
     player["x"] = player_x_position
     player["y"] = player_y_position
 
@@ -256,6 +246,7 @@ def main():
                         ui.print_table(player_inv, 'count,desc')
                         ui.print_score_of_player(PLAYER_SCORE)       
                         ui.display_heath(HEALTH)
+                        ui.display_press_m_to_menu()
                     else:
                         is_running_first_lvl = False
             if PLAYER_SCORE >= 2 and HEALTH > 0:
@@ -275,9 +266,11 @@ def main():
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
                             ui.print_score_of_player(PLAYER_SCORE)       # should show????
+                            ui.display_press_m_to_menu()
                             # ui.print_table(player_inv, 'count,desc')          # dont know if in this lvl should show inventory!!!
                         else:
                             is_running_second_lvl = False
+
                 if PLAYER_SCORE >= 2 and HEALTH > 0:
                     is_running_third_lvl = True
                     while is_running_third_lvl:

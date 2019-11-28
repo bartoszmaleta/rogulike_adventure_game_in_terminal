@@ -420,10 +420,23 @@ def print_menu(title, list_options, exit_message):
         None: This function doesn't return anything it only prints to console.
     """
     print()
-    print(title)
+    # print(title)
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
+
+    FILE_PATH_OF_MENU_LOGO = "menu_logo.txt"
+    menu_title_board = engine.create_board_out_of_file(FILE_PATH_OF_MENU_LOGO)
+    display_menu_logo(menu_title_board)
+
+    blank_line()
+    blank_line()
+
     for index, element in enumerate(list_options):
-        print('    ({}) {}'.format(index + 1, element))
-    print('    (0) {}'.format(exit_message))
+        print('\033[1;34;49m                                        ({}) {}'.format(index + 1, element))         # here red
+    print('                                        (0) {}\033[0;37;49m'.format(exit_message))                # here end normal
+# \033[1;31m    -------------->  red
 
 
 def return_headline_for_menu_title_(head):
@@ -534,4 +547,88 @@ def print_table_beauty(table, title_list):
             print(f'\\{top}/')
         else:
             print()
-            print(spacer)  
+            print(spacer)
+
+
+def display_menu_logo(menu_logo):
+    for row in menu_logo:
+        # print(''.join(row))
+        for element in row:
+            if element == "M":
+                print('\033[1;32;49m{}'.format(element), end="")
+            elif element == "E":
+                print('\033[0;37;49m{}'.format(element), end="")
+            elif element == "E":
+                print('\033[0;34;44m{}'.format(element), end="")
+            # elif element == "o":
+                # print('\033[0;34;44m{}'.format(element), end="")
+            elif element == "N":
+                print('\033[1;31;49m{}'.format(element), end="")
+            elif element == "U":
+                print('\033[0;35;49m{}'.format(element), end="")
+            elif element == "D":
+                print('\033[0;35;49m{}'.format(element), end="")
+            else:
+                print('\033[0;37;49m{}'.format(element), end="")
+        print()
+
+
+def display_menu_logo_in_colour(menu_logo):
+    for row in menu_logo:
+        # this one could be one line!!!!! :
+        # print(''.join(row))
+        for element in row:
+            if element == "M":
+                print('\033[1;32;49m{}'.format(element), end="")
+            elif element == "E":
+                print('\033[0;34;44m{}'.format(element), end="")
+            # elif element == "o":
+                # print('\033[0;34;44m{}'.format(element), end="")
+            elif element == "N":
+                print('\033[1;31;49m{}'.format(element), end="")
+            elif element == "U":
+                print('\033[0;35;49m{}'.format(element), end="")
+            elif element == "D":
+                print('\033[0;32;49m{}'.format(element), end="")
+            # elif element == "X":
+                # print('\033[1;31;41m{}'.format(element), end="")
+                # # print('\033[1;31;49m{}'.format(element), end="")
+                # print('\033[0;37;49m', end="")
+            # elif element == "-":
+                # print('\033[1;30;40m{}'.format(element), end="")
+                # print('\033[0;37;49m', end="")
+            # elif element == "*":
+                # print('\033[1;30;40m{}'.format(element), end="")
+                # print('\033[0;37;49m', end="")
+            # elif element == "^":
+                # print('\033[0;32;42m{}'.format(element), end="")
+                # print('\033[0;37;49m', end="")
+            # else:
+                # print('\033[0;37;49m{}'.format(element), end="")
+        print()
+
+
+# \033[0;34m    -------------->  blue
+# \033[0;34;44m -------------->  blue + background blue
+# \033[0;33m    -------------->  yellow, almost brown
+# \033[0;35m    -------------->  magenta
+# \033[0;32m    -------------->  green
+# \033[1;31m    -------------->  red
+# \033[1;31m    -------------->  red
+# \033[1;31;41m -------------->  red + background red
+# \033[1;30m    -------------->  black font
+# \033[0;40m    -------------->  black background
+# \033[0;42m    -------------->  green background
+# \033[0;32;42m    -------------->  green background
+# 
+# -------------------------------------------------
+# TESTING COLOURS
+
+def display_press_m_to_menu():
+    blank_line()
+    blank_line()
+    text = "Press m to go to menu"
+    len_text = len(text)
+    print(("-" * len_text) + "----")
+    print("| Press m to go to menu |")
+    print(("-" * len_text) + "----")
