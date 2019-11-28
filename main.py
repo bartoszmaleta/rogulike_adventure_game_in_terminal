@@ -32,11 +32,13 @@ import turn_game as turn_game
 #  - timer                                                                          NOT DONE
 
 
-PLAYER_ICON = '@'
 PLAYER_START_X = 4
 PLAYER_START_Y = 12
 PLAYER_INV = {'rope': 0, 'torch': 0, 'gold coin': 0, 'dagger': 0, 'arrow': 0, 'bow': 0}
 PLAYER_SCORE = 0
+WIZARD_ICON = "\U0001F9D9"
+WARRIOR_ICON = "\U0001F482"
+ASSASSIN_ICON = "\U0001F9D5"
 
 # BOARD_WIDTH = 80
 # BOARD_HEIGHT = 30
@@ -55,7 +57,7 @@ def create_player():
     player = {}
     player["x"] = PLAYER_START_X
     player["y"] = PLAYER_START_Y
-    player["icon"] = PLAYER_ICON
+    player["icon"] = ''
     player["inventory"] = PLAYER_INV
     # player["score"] = PLAYER_SCORE       # NEW, NOT USED
     return player
@@ -108,7 +110,11 @@ def change_player_position(board, player, key, PLAYER_SCORE):
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
             inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
             PLAYER_SCORE += 1
-            if old_board == "@":
+            if old_board == "\U0001F9D9":
+                board[board_y][board_x] = "."
+            elif old_board == "\U0001F482":
+                board[board_y][board_x] = "."
+            elif old_board == "\U0001F9D5":
                 board[board_y][board_x] = "."
             return player, board, PLAYER_SCORE
         elif new_board == "^":
@@ -121,7 +127,11 @@ def change_player_position(board, player, key, PLAYER_SCORE):
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
             if old_board == "$":
                 board[board_y][board_x] = "."
-            elif old_board == "@":
+            elif old_board == "\U0001F9D9":
+                board[board_y][board_x] = "."
+            elif old_board == "\U0001F482":
+                board[board_y][board_x] = "."
+            elif old_board == "\U0001F9D5":
                 board[board_y][board_x] = "."
             elif old_board == "^":
                 PLAYER_SCORE += 10
@@ -163,13 +173,6 @@ def main():
     #choosen_character_number = graphics.choosing_character()
     
     choosen_character_number = ui.class_selection_screen()
-    if choosen_character_number == "1":
-        character = 'wizard'
-    elif choosen_character_number == "3":
-        character = 'warrior'
-    elif choosen_character_number == "5":
-        character = 'assasssin'
-
     PLAYER_SCORE = 0
     HEALTH = 5
 
@@ -177,6 +180,17 @@ def main():
     FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
     # FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       # "labirynth2.txt" to shortcut to exit
     player = create_player()
+    
+    if choosen_character_number == "1":
+        character = 'wizard'
+        player["icon"] = WIZARD_ICON
+    elif choosen_character_number == "3":
+        character = 'warrior'
+        player["icon"] = WARRIOR_ICON
+    elif choosen_character_number == "5":
+        character = 'assasssin'
+        player["icon"] = ASSASSIN_ICON
+        
     player_inv = player["inventory"]
     is_running = True
 
