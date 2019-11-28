@@ -2,11 +2,45 @@
 
 # Player and boss take turns to attack each other with different moves
 # until one is defeated.
-
+import ui as ui
+import engine as engine
 import random
+import helpers as helpers
 
 
-def fighting_boss():
+def wizard(character_type):
+    
+    return wizard
+
+
+def how_to_play():
+    """Main function that will welcome the player to the game."""
+
+    print("\tWelcome to Battle Sim! This is a turn based combat simulator where")
+    print("\tthere can only be one winner.")
+
+    print("\nHow to play.\n\nPlayers take turn to choose a move. Moves can either deal moderate damage")
+    print("with a low range, deal high damage but over a wide")
+    print("range, or they can heal. (Note: Moves can miss, including Heal!)")
+
+    print("\nEach player starts with 100 health, and the first")
+    print("player to reduce their opponent to 0 is the winner.")
+
+    print("\nThat's it! Good luck")
+    
+
+def fighting_boss(character_type):
+    print(character_type)
+    if character_type == "wizard":
+        pass
+    elif character_type == "warrior":
+        pass
+    elif character_type == "assassin":
+        pass
+
+    FILE_PATH_OF_ASSASSIN_AND_ALIEN_BOSS = "assassin_and_alien_boss.txt"
+    assassin_and_alien_boss_board = engine.create_board_out_of_file(FILE_PATH_OF_ASSASSIN_AND_ALIEN_BOSS)
+
     """Main function that will welcome the player to the game."""
 
     print("\tWelcome to Battle Sim! This is a turn based combat simulator where")
@@ -22,9 +56,14 @@ def fighting_boss():
     print("\nThat's it! Good luck")
 
     play_again = True
+    # COUNTER_OF_ROUNDS = 0
 
     # Set up the play again loop
     while play_again:
+        # COUNTER_OF_ROUNDS += 1
+        # if COUNTER_OF_ROUNDS > 2:
+        #     ui.display_assassin_and_alien_boss(assassin_and_alien_boss_board)
+
         winner = None
         player_health = 100
         boss_health = 100
@@ -32,20 +71,24 @@ def fighting_boss():
         # determine whose turn it is
         turn = random.randint(1, 2)  # heads or tails
         if turn == 1:
+            helpers.clear_screen()
             player_turn = True
             boss_turn = False
             print("\nPlayer will attack first.")
+            ui.blank_line()
         else:
             player_turn = False
             boss_turn = True
             print("\nBoss will attack first.")
+            ui.blank_line()
 
-        print("\PLAYER HEALTH ", player_health)
+        print("PLAYER HEALTH ", player_health)
         print("BOSS HEALTH: ", boss_health)
 
         # set up the main game loop
         while (player_health != 0 or boss_health != 0):
-
+            ui.display_assassin_and_alien_boss(assassin_and_alien_boss_board)
+            
             heal_up = False  # determine if heal has been used by the player. Resets false each loop.
             miss = False  # determine if the chosen move will miss.
 
@@ -53,12 +96,16 @@ def fighting_boss():
             moves = {"Deadpunch": random.randint(18, 25),
                      "Fireball": random.randint(10, 35),
                      "Heal": random.randint(20, 25)}
+            
+            print('---------------------------------------------------------------------------------------------------------------------------------------------------------------------')
+            print(character_type)
 
             if player_turn:
+                print('----------------- YOUR TURN -----------------------------------------------------------------------------------------------------------------------------------------')
+
                 print("\nPlease select your move:\n1. Deadpunch (Deal damage between 18-25)\n2. Fireball (Deal damage between 10-35)\n3. Heal (Restore between 20-25 health)\n")
 
                 player_move = input("> ").lower()
-                # player_move = ">>> {} <<<".format(input().lower())
 
                 move_miss = random.randint(1, 5)  # 20% of missing
                 if move_miss == 1:
@@ -68,8 +115,10 @@ def fighting_boss():
 
                 if miss:
                     player_move = 0  # player misses and deals no damage
+                    helpers.clear_screen()
                     print("You missed!")
                 else:
+                    helpers.clear_screen()
                     if player_move in ("1", "deadpunch"):
                         player_move = moves["Deadpunch"]
                         print("\nYou used Deadpunch. It dealt ", player_move, " damage.")
@@ -83,6 +132,7 @@ def fighting_boss():
                     else:
                         print("\nThat is not a valid move. Please try again.")
                         continue
+                # print('-----------------------------------------------------------------------------------------------------')
 
             else:  # boss turn
 
@@ -127,6 +177,8 @@ def fighting_boss():
                                 boss_move = moves["Fireball"]  # FINISH HIM!
                                 print("\nThe boss used Fireball. It dealt ", boss_move, " damage.")
 
+            # print('-----------------------------------------------------------------------------------------------------')
+
             if heal_up:
                 if player_turn:
                     player_health += player_move
@@ -165,7 +217,7 @@ def fighting_boss():
             print("\nPlayer health: ", player_health, "boss health: ", boss_health)
             print("\nSorry, but your opponent wiped the floor with you. Better luck next time.")
 
-        print("\nWould you like to play again?")
+        # print("\nWould you like to play again?")
 
         answer = input("> ").lower()
         if answer == "n":
@@ -173,5 +225,7 @@ def fighting_boss():
         # if answer not in ("yes", "y"):
             # play_again = False
 
+        break
 
-fighting_boss()
+
+# fighting_boss()
