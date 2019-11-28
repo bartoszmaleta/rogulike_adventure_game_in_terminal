@@ -231,6 +231,10 @@ def main():
         else:
             PLAYER_SCORE = 0
             is_running_first_lvl = True
+            PLAYER_START_X = 4
+            PLAYER_START_Y = 12
+            player = const_position(player, PLAYER_START_X, PLAYER_START_Y)  
+            
             while is_running_first_lvl:
                 key = helpers.key_pressed()
                 if key == 'q':
@@ -239,6 +243,7 @@ def main():
                     ui.print_inventory_and_wait(player_inv)
                 else:
                     if PLAYER_SCORE < 2 and HEALTH > 0:
+
                         # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
                         # board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
                         player, board, PLAYER_SCORE, HEALTH  = action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH)
@@ -321,7 +326,8 @@ def main():
                         ui.print_text("Produced by .....")
                         # save to file
                         # godbye screen
-                        # how to get to main loop with  SCORE = 0
+                        board_from_file = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
+                        board = copy.deepcopy(board_from_file)
                         continue
 
                 # if HEALTH < 1:       # HEALTH < 1
@@ -341,7 +347,6 @@ def main():
                     ui.print_text("Good bye")
                     sys.exit(0)    
     
-
 
 if __name__ == '__main__':
     main()
