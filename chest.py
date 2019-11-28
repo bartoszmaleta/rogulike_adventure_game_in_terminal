@@ -1,4 +1,4 @@
-x = ['gold coin', 'dagger', 'torch', 'arrow', 'bow', 'ruby']
+x = ['healing potions', 'magic mushrooms', 'anti-alien cream','shield', 'weapon', 'old map']
 ksa = [1,2,3,4,5]
 pos = 2
 import random
