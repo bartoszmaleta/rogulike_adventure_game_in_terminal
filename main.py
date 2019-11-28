@@ -7,6 +7,7 @@ import inventory_controller as inventory_controller
 import chest as chest
 import time
 import copy
+import turn_game as turn_game
 # import map_manager as map_manager
 
 # # TODO:
@@ -22,7 +23,13 @@ import copy
 #  - choosing character by image of character and changing colour of "@" based on choosed character
 #  - fighting game with boss
 #  - ifinite game
-#  - ascii art 
+#  - ascii art
+#  - writing to file highscores                                                     NOT DONE
+#  - quiting the game                                                               NOT DONE
+#  - menu showing                                                                   NOT DONE
+#  - another chest to grab                                                          NOT DONE
+#  - change appearence of inventory to beaty                                        NOT DONE
+#  - timer                                                                          NOT DONE
 
 
 PLAYER_ICON = '@'
@@ -146,8 +153,18 @@ def main():
     # PLAYER_SCORE += 1
     # print(PLAYER_SCORE)
 
-    choosen_character_number = graphics.choosing_character()
+    #choosen_character_number = graphics.choosing_character()
+    
+    choosen_character_number = ui.class_selection_screen()
+    if choosen_character_number == "1":
+        character = 'wizard'
+    elif choosen_character_number == "3":
+        character = 'warrior'
+    elif choosen_character_number == "5":
+        character = 'assasssin'
+
     PLAYER_SCORE = 0
+    HEALTH = 5
 
     FILE_PATH = "map_visual.txt"
     FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
@@ -162,6 +179,7 @@ def main():
     # to show game without pressing key
     # board = engine.create_board_out_of_file(FILE_PATH)sd
     # ui.display_board(board)
+
     board = copy.deepcopy(board_from_file) 
     #board[10][3] = "\U0001F4A5"
     #board[21][21] = "\U0001F47D"
@@ -216,9 +234,8 @@ def main():
                     if key == 'q':
                         is_running = False
                     else:
-                        if PLAYER_SCORE < 2:
+                        if PLAYER_SCORE < 2 and HEALTH > 1:
                             # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
-                            # board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)           # TO GET LABIRYNTH VERSION, JUST UNCOMMENT THIS LINE, AND COMMENT LINE 169
                             # board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
                             player, board, PLAYER_SCORE  = change_player_position(board, player, key, PLAYER_SCORE)
                             board = engine.put_player_on_board(board, player)
@@ -238,20 +255,54 @@ def main():
                     if key == 'q':
                         is_running = False
                     else:                    
-                        if PLAYER_SCORE < 4:
+                        if PLAYER_SCORE < 6:
                             board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)
                             player, board, PLAYER_SCORE = change_player_position(board, player, key, PLAYER_SCORE)
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
-                            ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
+                            ui.print_score_of_player(PLAYER_SCORE)       # should show????
                             # ui.print_table(player_inv, 'count,desc')          # dont know if in this lvl should show inventory!!!
                         else:
                             is_running_second_lvl = False
                 
-                # PLAYER_SCORE = 0
-                ui.print_text('You win')
-                # time.sleep(2)
-                # continue
+                is_running_third_lvl = True
+                while is_running_third_lvl:
+                    helpers.clear_screen()
+                    # GRAPHICS WITH BOSS
+                    if choosen_character_number == "1":
+                        FILE_PATH_OF_WIZARD = "wizard.txt"
+                        wizard_board = engine.create_board_out_of_file(FILE_PATH_OF_WIZARD)
+                        ui.display_warrior(wizard_board)
+                    elif choosen_character_number == "3":
+                        FILE_PATH_OF_WIZARD = "warrior.txt"
+                        warrior_board = engine.create_board_out_of_file(FILE_PATH_OF_WIZARD)
+                        ui.display_warrior(warrior_board)
+                    elif choosen_character_number == "5":
+                        FILE_PATH_OF_ASSASIN = "assassin.txt"
+                        assasin_board = engine.create_board_out_of_file(FILE_PATH_OF_ASSASIN)
+                        ui.display_warrior(assasin_board)
+                    
+                    ui.print_text('Do you want to fight the boss (y/n)')
+                    key = helpers.key_pressed()
+
+                    if key == "y":
+                        helpers.clear_screen()
+
+                        # HOW TO PLAY                        
+                        turn_game.how_to_play()
+                        
+                        is_running_fight = True
+                        while is_running_fight:
+                            turn_game.fighting_boss(character)
+                            is_running_fight = False
+                    elif key == 'n':
+                        is_running_third_lvl = False
+                    is_running_third_lvl = False
+                
+
+                # CREDITS
+                ui.print_text('You win!!!!!!!!!!!!!!!!!!!!!!! Congrats')
+                ui.print_text("Produced by .....")
 
 
 if __name__ == '__main__':
