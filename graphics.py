@@ -151,6 +151,13 @@ def get_wizard_asciiart():
     
     return asciiart
 
+def inventory_ascii():
+    ascii_inventory_words = '''
+~𝐏𝐑𝐄𝐒𝐒 '𝐢' 𝐓𝐎 𝐒𝐇𝐎𝐖 𝐈𝐍𝐕𝐄𝐍𝐓𝐎𝐑𝐘~
+ '''
+    return ascii_inventory_words
+
+
 def choosing_character():
     FILE_PATH_OF_CHOOSING_CHARACTER = "choosing_character.txt"  
     board = engine.create_board_out_of_file(FILE_PATH_OF_CHOOSING_CHARACTER)
