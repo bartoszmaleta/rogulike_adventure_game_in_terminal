@@ -48,11 +48,10 @@ WIZARD_ICON = "\U0001F9D9"
 WARRIOR_ICON = "\U0001F482"
 ASSASSIN_ICON = "\U0001F9D5"
 
-# BOARD_WIDTH = 80
-# BOARD_HEIGHT = 30
-
 BOARD_WIDTH = 40
 BOARD_HEIGHT = 10
+
+BOARD_WIDTH = 20
 
 
 def create_player():
@@ -71,7 +70,7 @@ def create_player():
     return player
 
 
-def change_player_position(board, player, key, PLAYER_SCORE, HEALTH):
+def action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH):
     player_x = player["x"]
     player_y = player["y"]
     player_inv = player["inventory"]
@@ -226,7 +225,7 @@ def main():
                     if PLAYER_SCORE < 2 and HEALTH > 0:
                         # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
                         # board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
-                        player, board, PLAYER_SCORE, HEALTH  = change_player_position(board, player, key, PLAYER_SCORE, HEALTH)
+                        player, board, PLAYER_SCORE, HEALTH  = action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH)
                         board = engine.put_player_on_board(board, player)
                         ui.display_board(board)
                         ui.print_table(player_inv, 'count,desc')
@@ -247,7 +246,7 @@ def main():
                     else:                    
                         if PLAYER_SCORE < 6:
                             board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)
-                            player, board, PLAYER_SCORE, HEALTH = change_player_position(board, player, key, PLAYER_SCORE, HEALTH)
+                            player, board, PLAYER_SCORE, HEALTH = action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH)
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
                             ui.print_score_of_player(PLAYER_SCORE)       # should show????
