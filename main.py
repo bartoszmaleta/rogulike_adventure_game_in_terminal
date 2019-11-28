@@ -17,11 +17,14 @@ import turn_game as turn_game
 #  - after gaining score 10 showing 'congrats' and changing to labirynth            DONE
 #  - dollar sign disappearing after leaving spot of dollar sign                     DONE
 #  - constant position in new level!                                                DONE
-#  - Icons of attacks in turn game
+#  - Icons of attacks in turn game                                                  NOT DONE
+#  - delete one loop                                                                NOT DONE
+#  - HEALTH                                                                         NOT DONE
+#  - case sensitive
 
 # # TODO:
 #  Further:
-#  - choosing character by image of character and changing colour of "@" based on choosed character     NOT DONE
+#  - choosing character by image of character and changing colour of "@" based on choosed character     DONE
 #  - fighting game with boss                                                                            DONE
 #  - ifinite game                                                                                       NOT DONE
 #  - ascii art                                                                                          NOT DONE
