@@ -1,5 +1,7 @@
 from time import sleep
 from os import system
+import engine as engine
+import ui as ui
 
 
 def introduction_screen():
@@ -148,3 +150,11 @@ def get_wizard_asciiart():
 (________mrf\____.dBBBb.________)____)"""
     
     return asciiart
+
+def choosing_character():
+    FILE_PATH_OF_CHOOSING_CHARACTER = "choosing_character.txt"  
+    board = engine.create_board_out_of_file(FILE_PATH_OF_CHOOSING_CHARACTER)
+    ui.display_choosing_characters(board)
+    input_choosing_character = input("What's your choice?: ")
+    
+    return input_choosing_character

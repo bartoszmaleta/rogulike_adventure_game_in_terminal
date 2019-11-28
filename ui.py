@@ -251,3 +251,9 @@ def print_score_of_player(score_of_player):       # NEW, NOT USED
     # player_score = player["score"]
     # print('SCORE: ', player_score)
     print('SCORE: ', score_of_player)
+
+
+def display_choosing_characters(board):
+    helpers.clear_screen()
+    for row in board:
+        print(''.join(row)) 
