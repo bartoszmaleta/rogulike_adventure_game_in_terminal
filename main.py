@@ -322,10 +322,11 @@ def main():
                             
                     if HEALTH > 1:      # This HEALTH should be vaildated after turn_game, but turn_game nothing returns so it cant know who won!
                         ui.print_text('You win!!!!!!!!!!!!!!!!!!!!!!! Congrats')
-                        # CREDITS
-                        ui.print_text("Produced by .....")
                         # save to file
-                        # godbye screen
+                        ui.display_goodbye_logo()
+                        ui.print_text("Produced by .....")
+                        # CREDITS
+
                         board_from_file = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
                         board = copy.deepcopy(board_from_file)
                         continue

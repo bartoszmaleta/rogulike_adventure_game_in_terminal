@@ -569,38 +569,41 @@ def display_menu_logo(menu_logo):
         print()
 
 
-def display_menu_logo_in_colour(menu_logo):
-    for row in menu_logo:
-        # this one could be one line!!!!! :
+def display_goodbye_logo(goodbye_logo):
+    list_with_chars_to_colour = "8.P'"
+    for row in goodbye_logo:
         # print(''.join(row))
         for element in row:
-            if element == "M":
-                print('\033[1;32;49m{}'.format(element), end="")
-            elif element == "E":
-                print('\033[0;34;44m{}'.format(element), end="")
-            # elif element == "o":
-                # print('\033[0;34;44m{}'.format(element), end="")
-            elif element == "N":
-                print('\033[1;31;49m{}'.format(element), end="")
-            elif element == "U":
-                print('\033[0;35;49m{}'.format(element), end="")
-            elif element == "D":
-                print('\033[0;32;49m{}'.format(element), end="")
-            # elif element == "X":
-                # print('\033[1;31;41m{}'.format(element), end="")
-                # # print('\033[1;31;49m{}'.format(element), end="")
-                # print('\033[0;37;49m', end="")
-            # elif element == "-":
-                # print('\033[1;30;40m{}'.format(element), end="")
-                # print('\033[0;37;49m', end="")
-            # elif element == "*":
-                # print('\033[1;30;40m{}'.format(element), end="")
-                # print('\033[0;37;49m', end="")
-            # elif element == "^":
-                # print('\033[0;32;42m{}'.format(element), end="")
-                # print('\033[0;37;49m', end="")
-            # else:
+            if element in list_with_chars_to_colour:
+                print('\033[1;32;49m{}\033[0;37;49m'.format(element), end="")
+            else:
+                print('\033[0;37;49m{}'.format(element), end="")
+        print()
+
+
+# TODO: make it!!!!!
+def display_credits(credits):
+    list_with_chars_to_colour = "8.P'"      # TODO
+    for row in credits:
+        # print(''.join(row))
+        for element in row:
+            if element in list_with_chars_to_colour:
+                print('\033[1;31;49m{}\033[0;37;49m'.format(element), end="")
+            # elif element == "'":
                 # print('\033[0;37;49m{}'.format(element), end="")
+            # elif element == ".":
+                # print('\033[0;34;44m{}'.format(element), end="")
+            
+            # # elif element == "o":
+                # # print('\033[0;34;44m{}'.format(element), end="")
+            # elif element == "P":
+                # print('\033[1;31;49m{}'.format(element), end="")
+            # elif element == "U":
+                # print('\033[0;35;49m{}'.format(element), end="")
+            # elif element == "D":
+                # print('\033[0;35;49m{}'.format(element), end="")
+            else:
+                print('\033[0;37;49m{}'.format(element), end="")
         print()
 
 
