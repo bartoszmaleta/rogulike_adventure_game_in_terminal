@@ -5,4 +5,6 @@ print("\U0001F4A5")	        # blast
 print("\U0001F41F")	        # fish
 print("\U0001F47D")          #alien 
 print("\U0001F333")          #tree
-print("\U0001F332"
+print("\U0001F9D9")         #wizard 
+print("\U0001F9D5")         #assassin    
+print("\U0001F482")         #warrior
