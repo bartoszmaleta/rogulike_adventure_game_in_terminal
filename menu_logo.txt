@@ -1,0 +1,16 @@
+MMMMMMMM               MMMMMMMM  EEEEEEEEEEEEEEEEEEEEEE  NNNNNNNN        NNNNNNNN  UUUUUUUU     UUUUUUUU
+M.......M             M.......M  E....................E  N.......N       N......N  U......U     U......U
+M........M           M........M  E....................E  N........N      N......N  U......U     U......U
+M.........M         M.........M  EE......EEEEEEEEE....E  N.........N     N......N  UU.....U     U.....UU
+M..........M       M..........M    E.....E       EEEEEE  N..........N    N......N   U.....U     U.....U 
+M...........M     M...........M    E.....E               N...........N   N......N   U.....D     D.....U 
+M.......M....M   M....M.......M    E......EEEEEEEEEE     N.......N....N  N......N   U.....D     D.....U 
+M......M M....M M....M M......M    E...............E     N......N N....N N......N   U.....D     D.....U 
+M......M  M....M....M  M......M    E...............E     N......N  N....N.......N   U.....D     D.....U 
+M......M   M.......M   M......M    E......EEEEEEEEEE     N......N   N...........N   U.....D     D.....U 
+M......M    M.....M    M......M    E.....E               N......N    N..........N   U.....D     D.....U 
+M......M     MMMMM     M......M    E.....E       EEEEEE  N......N     N.........N   U......U   U......U 
+M......M               M......M  EE......EEEEEEEE.....E  N......N      N........N   U.......UUU.......U 
+M......M               M......M  E....................E  N......N       N.......N    UU.............UU  
+M......M               M......M  E....................E  N......N        N......N      UU.........UU    
+MMMMMMMM               MMMMMMMM  EEEEEEEEEEEEEEEEEEEEEE  NNNNNNNN         NNNNNNN        UUUUUUUUU      
