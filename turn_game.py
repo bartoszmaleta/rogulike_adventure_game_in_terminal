@@ -29,7 +29,7 @@ def how_to_play():
     print("\nThat's it! Good luck")
     
 
-def fighting_boss(character_type):
+def fighting_boss(character_type, health_of_player_in_the_whole_game):
     # print(character_type)
 
     # """Main function that will welcome the player to the game."""
@@ -211,10 +211,10 @@ def fighting_boss(character_type):
                             elif player_health > 35 and player_health <= 75:
                                 list_of_moves = ["Toxic Bite", "Furious ultra mega rage attakck"]
                                 list_of_moves = random.choice(list_of_moves)
-                                boss_move = moves[list_of_moves]
+                                boss_move = computer_moves[list_of_moves]
                                 print("\nThe boss used ", list_of_moves, ". It dealt ", boss_move, " damage.")
                             elif player_health <= 35:
-                                boss_move = moves["Furious ultra mega rage attakck"]  # FINISH HIM!
+                                boss_move = computer_moves["Furious ultra mega rage attakck"]  # FINISH HIM!
                                 print("\nThe boss used Furious ultra mega rage attakck. It dealt ", boss_move, " damage.")
 
             # print('-----------------------------------------------------------------------------------------------------')
@@ -256,7 +256,7 @@ def fighting_boss(character_type):
         else:
             print("\nPlayer health: ", player_health, "boss health: ", boss_health)
             print("\nSorry, but your opponent wiped the floor with you. Better luck next time.")
-
+            health_of_player_in_the_whole_game = 0
         # print("\nWould you like to play again?")
 
         answer = input("> ").lower()
@@ -264,8 +264,13 @@ def fighting_boss(character_type):
             break
         # if answer not in ("yes", "y"):
             # play_again = False
-
+            break
         break
 
+    # return health_of_player_in_the_whole_game 
 
-fighting_boss("wizard")
+# fighting_boss("wizard")
+
+# print(fighting_boss("wizard", 1))
+
+# def win_or_lose(health_of_player_in_the_whole_game)

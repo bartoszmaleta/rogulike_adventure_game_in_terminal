@@ -338,3 +338,7 @@ def display_fight(character_type):
         fight_graphic = engine.create_board_out_of_file(FILE_PATH_OF_ASSASSIN_AND_ALIEN_BOSS)
         for row in fight_graphic:
             print(''.join(row))          
+
+
+def display_heath(health_of_player):
+    print('HEALTH: ', health_of_player)
