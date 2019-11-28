@@ -30,39 +30,26 @@ def how_to_play():
     
 
 def fighting_boss(character_type):
-    print(character_type)
-    if character_type == "wizard":
-        pass
-    elif character_type == "warrior":
-        pass
-    elif character_type == "assassin":
-        pass
+    # print(character_type)
 
-    FILE_PATH_OF_ASSASSIN_AND_ALIEN_BOSS = "assassin_and_alien_boss.txt"
-    assassin_and_alien_boss_board = engine.create_board_out_of_file(FILE_PATH_OF_ASSASSIN_AND_ALIEN_BOSS)
+    # """Main function that will welcome the player to the game."""
 
-    """Main function that will welcome the player to the game."""
+    # print("\tWelcome to Battle Sim! This is a turn based combat simulator where")
+    # print("\tthere can only be one winner.")
 
-    print("\tWelcome to Battle Sim! This is a turn based combat simulator where")
-    print("\tthere can only be one winner.")
+    # print("\nHow to play.\n\nPlayers take turn to choose a move. Moves can either deal moderate damage")
+    # print("with a low range, deal high damage but over a wide")
+    # print("range, or they can heal. (Note: Moves can miss, including Heal!)")
 
-    print("\nHow to play.\n\nPlayers take turn to choose a move. Moves can either deal moderate damage")
-    print("with a low range, deal high damage but over a wide")
-    print("range, or they can heal. (Note: Moves can miss, including Heal!)")
+    # print("\nEach player starts with 100 health, and the first")
+    # print("player to reduce their opponent to 0 is the winner.")
 
-    print("\nEach player starts with 100 health, and the first")
-    print("player to reduce their opponent to 0 is the winner.")
-
-    print("\nThat's it! Good luck")
+    # print("\nThat's it! Good luck")
 
     play_again = True
-    # COUNTER_OF_ROUNDS = 0
 
     # Set up the play again loop
     while play_again:
-        # COUNTER_OF_ROUNDS += 1
-        # if COUNTER_OF_ROUNDS > 2:
-        #     ui.display_assassin_and_alien_boss(assassin_and_alien_boss_board)
 
         winner = None
         player_health = 100
@@ -87,8 +74,8 @@ def fighting_boss(character_type):
 
         # set up the main game loop
         while (player_health != 0 or boss_health != 0):
-            ui.display_assassin_and_alien_boss(assassin_and_alien_boss_board)
-            
+            # ui.display_assassin_and_alien_boss(fight_graphic)
+            ui.display_fight(character_type)
             heal_up = False  # determine if heal has been used by the player. Resets false each loop.
             miss = False  # determine if the chosen move will miss.
 
@@ -97,8 +84,26 @@ def fighting_boss(character_type):
                      "Fireball": random.randint(10, 35),
                      "Heal": random.randint(20, 25)}
             
+            if character_type == "wizard":
+                moves = {"Fireball": random.randint(18, 25),
+                         "Spell of destruction": random.randint(10, 35),
+                         "Heal": random.randint(20, 25)}
+            elif character_type == "warrior":
+                moves = {"Sword spike": random.randint(18, 25),
+                         "Deadpunch": random.randint(10, 35),
+                         "Heal": random.randint(20, 25)}
+
+            elif character_type == "assassin":
+                moves = {"Poisonous dagger spike": random.randint(18, 25),
+                         "Rain of death": random.randint(10, 35),
+                         "Heal": random.randint(20, 25)}
+
+            computer_moves = {"Toxic Bite": random.randint(18, 25),
+                              "Furious ultra mega rage attakck": random.randint(10, 35),
+                              "Heal": random.randint(20, 25)}            
+        
             print('---------------------------------------------------------------------------------------------------------------------------------------------------------------------')
-            print(character_type)
+            # print(character_type)
 
             if player_turn:
                 print('----------------- YOUR TURN -----------------------------------------------------------------------------------------------------------------------------------------')
@@ -118,20 +123,55 @@ def fighting_boss(character_type):
                     helpers.clear_screen()
                     print("You missed!")
                 else:
-                    helpers.clear_screen()
-                    if player_move in ("1", "deadpunch"):
-                        player_move = moves["Deadpunch"]
-                        print("\nYou used Deadpunch. It dealt ", player_move, " damage.")
-                    elif player_move in ("2", "fireball"):
-                        player_move = moves["Fireball"]
-                        print("\nYou used Fireball. It dealt ", player_move, " damage.")
-                    elif player_move in ("3", "heal"):
-                        heal_up = True  # heal activated
-                        player_move = moves["Heal"]
-                        print("\nYou used Heal. It healed for ", player_move, " health.")
-                    else:
-                        print("\nThat is not a valid move. Please try again.")
-                        continue
+                    if character_type == "wizard":
+                        helpers.clear_screen()
+                        if player_move in ("1", "fireball"):
+                            player_move = moves["Fireball"]
+                            print("\nYou used Fireball. It dealt ", player_move, " damage.")
+                        elif player_move in ("2", "spell of destruction"):
+                            player_move = moves["Spell of destruction"]
+                            print("\nYou used Spell of destruction. It dealt ", player_move, " damage.")
+                        elif player_move in ("3", "heal"):
+                            heal_up = True  # heal activated
+                            player_move = moves["Heal"]
+                            print("\nYou used Heal. It healed for ", player_move, " health.")
+                        else:
+                            print("\nThat is not a valid move. Please try again.")
+                            continue
+                    
+                    if character_type == "warrior":
+                        helpers.clear_screen()
+                        if player_move in ("1", "sword spike"):
+                            player_move = moves["Sword spike"]
+                            print("\nYou used Sword spike. It dealt ", player_move, " damage.")
+                        elif player_move in ("2", "deadpunch"):
+                            player_move = moves["Deadpunch"]
+                            print("\nYou used Deadpunch. It dealt ", player_move, " damage.")
+                        elif player_move in ("3", "heal"):
+                            heal_up = True  # heal activated
+                            player_move = moves["Heal"]
+                            print("\nYou used Heal. It healed for ", player_move, " health.")
+                        else:
+                            print("\nThat is not a valid move. Please try again.")
+                            continue
+
+                    if character_type == "assassin":
+                        helpers.clear_screen()
+                        if player_move in ("1", "poisonous dagger spike"):
+                            player_move = moves["Poisonous dagger spike"]
+                            print("\nYou used Poisonous dagger spike. It dealt ", player_move, " damage.")
+                        elif player_move in ("2", "rain of death"):
+                            player_move = moves["Rain of death"]
+                            print("\nYou used Rain of death. It dealt ", player_move, " damage.")
+                        elif player_move in ("3", "heal"):
+                            heal_up = True  # heal activated
+                            player_move = moves["Heal"]
+                            print("\nYou used Heal. It healed for ", player_move, " health.")
+                        else:
+                            print("\nThat is not a valid move. Please try again.")
+                            continue
+
+
                 # print('-----------------------------------------------------------------------------------------------------')
 
             else:  # boss turn
@@ -148,34 +188,34 @@ def fighting_boss(character_type):
                 else:
                     if boss_health > 30: 
                         if player_health > 75:
-                            boss_move = moves["Deadpunch"]
-                            print("\nThe boss used Deadpunch. It dealt ", boss_move, " damage.")
+                            boss_move = computer_moves["Toxic Bite"]
+                            print("\nThe boss used Toxic Bite. It dealt ", boss_move, " damage.")
                         elif player_health > 35 and player_health <= 75:  # boss decides whether to go big or play it safe
-                            list_of_moves = ["Deadpunch", "Fireball"]
+                            list_of_moves = ["Toxic Bite", "Furious ultra mega rage attakck"]
                             list_of_moves = random.choice(list_of_moves)
-                            boss_move = moves[list_of_moves]
+                            boss_move = computer_moves[list_of_moves]
                             print("\nThe boss used ", list_of_moves, ". It dealt ", boss_move, " damage.")
                         elif player_health <= 35:
-                            boss_move = moves["Fireball"]  # FINISH HIM!
-                            print("\nThe boss used Fireball. It dealt ", boss_move, " damage.")
+                            boss_move = computer_moves["Furious ultra mega rage attakck"]  # FINISH HIM!
+                            print("\nThe boss used Furious ultra mega rage attakck. It dealt ", boss_move, " damage.")
                     else:  # if the boss has less than 30 health, there is a 50% chance they will heal
                         heal_or_fight = random.randint(1, 2) 
                         if heal_or_fight == 1:
                             heal_up = True
-                            boss_move = moves["Heal"]
+                            boss_move = computer_moves["Heal"]
                             print("\nThe boss used Heal. It healed for ", boss_move, " health.")
                         else:
                             if player_health > 75:
-                                boss_move = moves["Deadpunch"]
-                                print("\nThe boss used Deadpunch. It dealt ", boss_move, " damage.")
+                                boss_move = computer_moves["Toxic Bite"]
+                                print("\nThe boss used Toxic Bite. It dealt ", boss_move, " damage.")
                             elif player_health > 35 and player_health <= 75:
-                                list_of_moves = ["Deadpunch", "Fireball"]
+                                list_of_moves = ["Toxic Bite", "Furious ultra mega rage attakck"]
                                 list_of_moves = random.choice(list_of_moves)
                                 boss_move = moves[list_of_moves]
                                 print("\nThe boss used ", list_of_moves, ". It dealt ", boss_move, " damage.")
                             elif player_health <= 35:
-                                boss_move = moves["Fireball"]  # FINISH HIM!
-                                print("\nThe boss used Fireball. It dealt ", boss_move, " damage.")
+                                boss_move = moves["Furious ultra mega rage attakck"]  # FINISH HIM!
+                                print("\nThe boss used Furious ultra mega rage attakck. It dealt ", boss_move, " damage.")
 
             # print('-----------------------------------------------------------------------------------------------------')
 
@@ -228,4 +268,4 @@ def fighting_boss(character_type):
         break
 
 
-# fighting_boss()
+fighting_boss("wizard")

@@ -3,6 +3,7 @@ import graphics as graphics
 import os
 import time
 import operator
+import engine as engine
 
 
 def display_board(board):
@@ -312,3 +313,28 @@ def display_assassin_and_alien_boss(board):
     for row in board:
         print(''.join(row))
 
+
+def display_fight(character_type):
+    FILE_PATH_OF_ASSASSIN_AND_ALIEN_BOSS = "assassin_and_alien_boss.txt"
+    FILE_PATH_OF_WIZARD_AND_ALIEN_BOSS = "wizard_and_alien_boss.txt"
+    FILE_PATH_OF_WARRIOR_AND_ALIEN_BOSS = "warrior_and_alien_boss.txt"
+
+    # wizard_and_alien_boss_board = engine.create_board_out_of_file(FILE_PATH_OF_WIZARD_AND_ALIEN_BOSS)
+
+    # warrior_and_alien_boss_board = engine.create_board_out_of_file(FILE_PATH_OF_WARRIOR_AND_ALIEN_BOSS)
+
+    # assassin_and_alien_boss_board = engine.create_board_out_of_file(FILE_PATH_OF_ASSASSIN_AND_ALIEN_BOSS)
+
+    if character_type == "wizard":
+        
+        fight_graphic = engine.create_board_out_of_file(FILE_PATH_OF_WIZARD_AND_ALIEN_BOSS)
+        for row in fight_graphic:
+            print(''.join(row))   
+    elif character_type == "warrior":
+        fight_graphic = engine.create_board_out_of_file(FILE_PATH_OF_WARRIOR_AND_ALIEN_BOSS)
+        for row in fight_graphic:
+            print(''.join(row))  
+    elif character_type == "assassin":
+        fight_graphic = engine.create_board_out_of_file(FILE_PATH_OF_ASSASSIN_AND_ALIEN_BOSS)
+        for row in fight_graphic:
+            print(''.join(row))          
