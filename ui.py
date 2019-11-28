@@ -4,6 +4,9 @@ import os
 import time
 import operator
 import engine as engine
+from collections import OrderedDict
+
+
 
 
 def display_board(board):
@@ -97,8 +100,8 @@ def show_assassin_info():
 def show_warrior_info():
     asciiart = graphics.get_warrior_asciiart()
     info = '''
-    Warrior is a strong, solid character, centered around strenght and physical health. On the beginning of the game, 
-    warrior has more lifes than the others. Warrior often wears heavy armor alongside swords. '''
+    Warrior is a strong, solid character, centered around strenght and physical health. He is known for his
+    powerful attacks. Warrior often wears heavy armor alongside swords. '''
     print("")
     print_character_info(asciiart, info)
 
@@ -150,101 +153,94 @@ def class_selection_screen():
 # Initial commit
 
 
-def print_table(player_inv, order=None):
-    space = ' '
-    vertical_line = '|'
-    dash = '-'
-    longest_string_in_inv = max(len(longest_string) for longest_string in player_inv)  # =9
+def print_how_to_show_inventory():
+    inventory_ascii = graphics.inventory_ascii()
+    print(inventory_ascii)
 
-    number_of_dashes = longest_string_in_inv + 3 + len('count')
-    dashes = dash * number_of_dashes  # =17
+def print_inventory_and_wait(player_inv):
+    os.system("clear")
+    print_table(player_inv)
+    input("ENTER to go back")
+
+def add_to_string(string, to_add):
+    return string + to_add + "\n"
+
+def print_table(player_inv, count=None):
+    longest_left = len("item") + 2
+    longest_right = len("count") + 3
+
+    if count == "count,desc":
+        player_inv = OrderedDict(player_inv)
+
+    for key in player_inv:
+        value = player_inv[key]
+        item_name_length = len(key)
+        item_count_length = len(str(value))
+        if item_name_length > longest_left:
+            longest_left = item_name_length + 2
+        if item_count_length > longest_right:
+            longest_right = item_count_length + 3
     
-    # if order is issubclass(int, str):
-    #     print('asqwe')
-
-    # if order is not None:
-    #     print('Choose order. You can choose between ascending and descending.')
-    #     print("To display ascending table write: 'print_table(inv, 'count,asc')")
-    #     print("To display descending table write: 'print_table(inv, 'count,desc')")
-    #     print('\n Your inventory: \n')
-
-    if order is None:
-        print('You does not enter order. You can choose between ascending and descending.')
-        print("To display ascending table write: 'print_table(inv, 'count,asc')")
-        print("To display descending table write: 'print_table(inv, 'count,desc')")
-        print('Right now the table will be printed without order!')
-        # inv = order
-        # asc_sorted_inv = sorted(inv.items(), key=operator.itemgetter(-1))
-        print(dashes)
-        print("{:<10} {:<15}".format('item_name |', 'count'))
-        print(dashes)
-        for keys, values in player_inv.items():
-            # count = values
-            
-            number_of_whitespaces_before_item_name = longest_string_in_inv - len(keys)
-            whitespaces_before_item_name = ' ' * number_of_whitespaces_before_item_name
-            keys_with_spaces_and_line = whitespaces_before_item_name + keys + space + vertical_line
-            
-            values_str = str(values)
-            length_of_count = len('count')
-            number_of_whitespaces_before_count = length_of_count - len(values_str)
-            whitespaces_before_count = ' ' * number_of_whitespaces_before_count
-            count_with_spaces = whitespaces_before_count + values_str
-
-            print("{:<0} {:<15}".format(keys_with_spaces_and_line, count_with_spaces))
-        
-        print(dashes)
-        print()
-        # display_total_number_of_inventory()  
-        
-    if order == 'count,desc':
-        desc_sorted_inv = order
-        desc_sorted_inv = sorted(player_inv.items(), key=operator.itemgetter(-1), reverse=True)
-        print(dashes)
-        print("{:<10} {:<15}".format('item_name |', 'count'))
-        print(dashes)
-        for keys, values in desc_sorted_inv:
-            # count = values
-            
-            number_of_whitespaces_before_item_name = longest_string_in_inv - len(keys)
-            whitespaces_before_item_name = ' ' * number_of_whitespaces_before_item_name
-            keys_with_spaces_and_line = whitespaces_before_item_name + keys + space + vertical_line
-            
-            values_str = str(values)
-            length_of_count = len('count')
-            number_of_whitespaces_before_count = length_of_count - len(values_str)
-            whitespaces_before_count = ' ' * number_of_whitespaces_before_count
-            count_with_spaces = whitespaces_before_count + values_str
-
-            print("{:<0} {:<15}".format(keys_with_spaces_and_line, count_with_spaces))
-        
-        print(dashes)
-        print()
-        # display_total_number_of_inventory()
+    main_middle_length = longest_left + longest_right + 2
     
-    elif order == 'count,asc':
-        asc_sorted_inv = order
-        asc_sorted_inv = sorted(player_inv.items(), key=operator.itemgetter(-1))
-        print(dashes)
-        print("{:<10} {:<15}".format('item_name |', 'count'))
-        print(dashes)
-        for keys, values in asc_sorted_inv:
-            # count = values
-            
-            number_of_whitespaces_before_item_name = longest_string_in_inv - len(keys)
-            whitespaces_before_item_name = ' ' * number_of_whitespaces_before_item_name
-            keys_with_spaces_and_line = whitespaces_before_item_name + keys + space + vertical_line
-            
-            values_str = str(values)
-            length_of_count = len('count')
-            number_of_whitespaces_before_count = length_of_count - len(values_str)
-            whitespaces_before_count = ' ' * number_of_whitespaces_before_count
-            count_with_spaces = whitespaces_before_count + values_str
+    separator_main = "=" * main_middle_length
+    separator_top = "/" + separator_main + "\\"
+    separator_mid = "|" + separator_main + "|"
+    separator_bot = "\\" + separator_main.replace("=","-") + "/"
 
-            print("{:<0} {:<15}".format(keys_with_spaces_and_line, count_with_spaces))
-        
-        print(dashes)
-        print()
+    table_string = ""
+    table_string = add_to_string(table_string, separator_top)
+    table_string = add_to_string(table_string, "|" + "˜”*°• INVENTORY •°*”˜".center(main_middle_length) + "|")
+    table_string = add_to_string(table_string, separator_mid)
+    table_string = add_to_string(table_string, "|" + "ITEM".center(longest_left) + "||" + "COUNT".center(longest_right) + "|")
+    table_string = add_to_string(table_string, separator_mid)
+    for key in player_inv:
+        value = player_inv[key]
+        table_string = add_to_string(table_string, "|" + key.center(longest_left) + "||" + str(value).center(longest_right) + "|")
+    table_string = add_to_string(table_string, separator_bot)
+
+    for sign in table_string:
+        if sign == "=":
+            print('\033[1;31m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "|":
+            print('\033[1;31m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "-":
+            print('\033[1;31m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "/":
+            print('\033[1;31m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "\\":
+            print('\033[1;31m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "•":
+            print('\033[0;35m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "*":
+            print('\033[0;35m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "°":
+            print('\033[0;35m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "˜":
+            print('\033[0;35m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "”":
+            print('\033[0;35m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign.isalpha():
+            print('\033[0;34m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign.isdigit():
+            print('\033[0;32m{}'.format(sign), end="")
+            print('\033[0;37;49m', end="")
+        elif sign == "\n":
+            print()
+        else:
+            print(sign, end="")
+
 
 
 def blank_line():

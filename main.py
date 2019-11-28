@@ -33,12 +33,11 @@ import sys
 
 PLAYER_START_X = 4
 PLAYER_START_Y = 12
-PLAYER_INV = {'rope': 0, 'torch': 0, 'gold coin': 0, 'dagger': 0, 'arrow': 0, 'bow': 0}
+PLAYER_INV = {'healing potions': 0, 'magic mushrooms': 0, 'anti-alien cream': 0, 'shield': 0, 'weapon': 0, 'old map': 0}
 PLAYER_SCORE = 0
 WIZARD_ICON = "\U0001F9D9"
 WARRIOR_ICON = "\U0001F482"
 ASSASSIN_ICON = "\U0001F9D5"
-
 BOARD_WIDTH = 40
 BOARD_HEIGHT = 10
 
@@ -236,6 +235,8 @@ def main():
                 key = helpers.key_pressed()
                 if key == 'q':
                     is_running = False
+                elif key == 'i':
+                    ui.print_inventory_and_wait(player_inv)
                 else:
                     if PLAYER_SCORE < 2 and HEALTH > 0:
                         # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
@@ -243,7 +244,7 @@ def main():
                         player, board, PLAYER_SCORE, HEALTH  = action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH)
                         board = engine.put_player_on_board(board, player)
                         ui.display_board(board)
-                        ui.print_table(player_inv, 'count,desc')
+                        ui.print_how_to_show_inventory()
                         ui.print_score_of_player(PLAYER_SCORE)       
                         ui.display_heath(HEALTH)
                         ui.display_press_m_to_menu()
@@ -264,6 +265,7 @@ def main():
                             board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)
                             player, board, PLAYER_SCORE, HEALTH = action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH)
                             board = engine.put_player_on_board(board, player)
+                            
                             ui.display_board(board)
                             ui.print_score_of_player(PLAYER_SCORE)       # should show????
                             ui.display_press_m_to_menu()
@@ -289,7 +291,6 @@ def main():
                             assasin_board = engine.create_board_out_of_file(FILE_PATH_OF_ASSASIN)
                             ui.display_warrior(assasin_board)
                         ui.print_text('Do you want to FIGHT the boss (y/n)')
-                        key = helpers.key_pressed()
                         if key == "y":
                             helpers.clear_screen()
                             # HOW TO PLAY                        
