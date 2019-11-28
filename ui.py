@@ -241,7 +241,12 @@ def print_table(player_inv, order=None):
         print()
 
 
+def blank_line():
+    print()
+
+
 # Initial commit
+
 
 def print_text(plain_string):
     print(plain_string)
@@ -251,3 +256,54 @@ def print_score_of_player(score_of_player):       # NEW, NOT USED
     # player_score = player["score"]
     # print('SCORE: ', player_score)
     print('SCORE: ', score_of_player)
+
+
+def display_wizard(board):
+    # helpers.clear_screen()
+
+    for row in board:
+        print(''.join(row))
+
+
+def display_warrior(board):
+    # helpers.clear_screen()
+
+    for row in board:
+        print(''.join(row))
+
+
+def display_assasin(board):
+    # helpers.clear_screen()
+
+    for row in board:
+        print(''.join(row))
+
+
+def display_alien_boss(board):
+    # helpers.clear_screen()
+
+    for row in board:
+        print(''.join(row))
+
+
+# ---------------------- Character and bosses --------------------------------
+def display_wizard_and_alien_boss(board):
+    # helpers.clear_screen()
+
+    for row in board:
+        print(''.join(row))
+
+
+def display_warrior_and_alien_boss(board):
+    # helpers.clear_screen()
+
+    for row in board:
+        print(''.join(row))
+
+
+def display_assassin_and_alien_boss(board):
+    # helpers.clear_screen()
+
+    for row in board:
+        print(''.join(row))
+

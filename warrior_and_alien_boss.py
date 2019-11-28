@@ -1,0 +1,7 @@
+import engine as engine
+import ui as ui
+
+
+FILE_PATH_OF_WARRIOR_AND_ALIEN_BOSS = "warrior_and_alien_boss.txt"
+warrior_and_alien_boss_board = engine.create_board_out_of_file(FILE_PATH_OF_WARRIOR_AND_ALIEN_BOSS)
+ui.display_warrior_and_alien_boss(warrior_and_alien_boss_board)
