@@ -67,10 +67,11 @@ def create_player():
     return player
 
 
-def change_player_position(board, player, key, PLAYER_SCORE):
+def change_player_position(board, player, key, PLAYER_SCORE, HEALTH):
     player_x = player["x"]
     player_y = player["y"]
     player_inv = player["inventory"]
+    player_icon = "\U0001F9D9"
 
     if key in "wsad":
         if key == "w" or key == "s":
@@ -87,11 +88,11 @@ def change_player_position(board, player, key, PLAYER_SCORE):
         player_old_x_or_y_position = player[x_or_y_coord]
 
         if key == "w" or key == "s":
-            new_board = board[player_new_x_or_y_position][player_x]
-            old_board = board[player_old_x_or_y_position][player_x]
+            new_player_position_on_board = board[player_new_x_or_y_position][player_x]
+            old_player_position_on_board = board[player_old_x_or_y_position][player_x]
         elif key == "a" or key == "d":
-            new_board = board[player_y][player_new_x_or_y_position]
-            old_board = board[player_y][player_old_x_or_y_position]
+            new_player_position_on_board = board[player_y][player_new_x_or_y_position]
+            old_player_position_on_board = board[player_y][player_old_x_or_y_position]
 
         if key == "w" or key == "s":
             board_y = player_old_x_or_y_position
@@ -100,56 +101,55 @@ def change_player_position(board, player, key, PLAYER_SCORE):
             board_y = player_y
             board_x = player_old_x_or_y_position
 
-        if new_board == "X":
-            return player, board, PLAYER_SCORE
-        elif new_board == "o":
-            return player, board, PLAYER_SCORE
-        elif new_board == "O":
-            return player, board, PLAYER_SCORE
-        elif new_board == "'":
-            return player, board, PLAYER_SCORE
-        elif new_board == "=":
-            return player, board, PLAYER_SCORE
-        elif new_board == "$":
+        if new_player_position_on_board == "X":
+            return player, board, PLAYER_SCORE, HEALTH
+        elif new_player_position_on_board == "o":
+            return player, board, PLAYER_SCORE, HEALTH
+        elif new_player_position_on_board == "O":
+            return player, board, PLAYER_SCORE, HEALTH
+        elif new_player_position_on_board == "'":
+            return player, board, PLAYER_SCORE, HEALTH
+        elif new_player_position_on_board == "=":
+            return player, board, PLAYER_SCORE, HEALTH
+        elif new_player_position_on_board == "$":
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
             inventory_controller.add_to_inventory(player_inv, chest.chest_inventory)
             PLAYER_SCORE += 1
-            if old_board == "\U0001F9D9":
+            if old_player_position_on_board == player_icon:
                 board[board_y][board_x] = "."
-            elif old_board == "\U0001F482":
-                board[board_y][board_x] = "."
-            elif old_board == "\U0001F9D5":
-                board[board_y][board_x] = "."
-            return player, board, PLAYER_SCORE
-        elif new_board == "^":
+            return player, board, PLAYER_SCORE, HEALTH
+        elif new_player_position_on_board == "^":
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
             PLAYER_SCORE += 10
-            if old_board == "@":
+            if old_player_position_on_board == "@":
                 board[board_y][board_x] = "."
-            return player, board, PLAYER_SCORE
-        elif new_board == ".":
+            return player, board, PLAYER_SCORE, HEALTH
+        elif new_player_position_on_board == ".":
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
-            if old_board == "$":
+            if old_player_position_on_board == "$":
                 board[board_y][board_x] = "."
-            elif old_board == "\U0001F9D9":
+            elif old_player_position_on_board == player_icon:
                 board[board_y][board_x] = "."
-            elif old_board == "\U0001F482":
-                board[board_y][board_x] = "."
-            elif old_board == "\U0001F9D5":
-                board[board_y][board_x] = "."
-            elif old_board == "^":
+            elif old_player_position_on_board == "^":
                 PLAYER_SCORE += 10
-            return player, board, PLAYER_SCORE
-        elif new_board == "|":
+            return player, board, PLAYER_SCORE, HEALTH
+        elif new_player_position_on_board == "|":
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
-            if old_board == "$":
+            if old_player_position_on_board == "$":
                 board[board_y][board_x] = "."
-            elif old_board == "^":
+            elif old_player_position_on_board == "^":
                 PLAYER_SCORE += 10
-            return player, board, PLAYER_SCORE  
-        return player, board, PLAYER_SCORE
+            return player, board, PLAYER_SCORE, HEALTH
 
-    return player, board, PLAYER_SCORE
+        elif new_player_position_on_board == "\U0001F4A5":
+            player[x_or_y_coord] = player[x_or_y_coord] + adjustment
+            HEALTH -= 1
+            if old_player_position_on_board == player_icon:
+                board[board_y][board_x] = "."
+            return player, board, PLAYER_SCORE, HEALTH
+        return player, board, PLAYER_SCORE, HEALTH
+
+    return player, board, PLAYER_SCORE, HEALTH
 
 
 def copy_board(board):      # NEW, NOT USED
@@ -273,11 +273,12 @@ def main():
                         if PLAYER_SCORE < 2 and HEALTH > 1:
                             # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
                             # board = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
-                            player, board, PLAYER_SCORE  = change_player_position(board, player, key, PLAYER_SCORE)
+                            player, board, PLAYER_SCORE, HEALTH  = change_player_position(board, player, key, PLAYER_SCORE, HEALTH)
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
                             ui.print_table(player_inv, 'count,desc')
-                            ui.print_score_of_player(PLAYER_SCORE)       # NEW, NOT USED
+                            ui.print_score_of_player(PLAYER_SCORE)       
+                            ui.display_heath(HEALTH)
                         else:
                             is_running_first_lvl = False
 
@@ -293,7 +294,7 @@ def main():
                     else:                    
                         if PLAYER_SCORE < 6:
                             board = engine.create_board_out_of_file(FILE_PATH_OF_LABIRYNTH)
-                            player, board, PLAYER_SCORE = change_player_position(board, player, key, PLAYER_SCORE)
+                            player, board, PLAYER_SCORE, HEALTH = change_player_position(board, player, key, PLAYER_SCORE, HEALTH)
                             board = engine.put_player_on_board(board, player)
                             ui.display_board(board)
                             ui.print_score_of_player(PLAYER_SCORE)       # should show????

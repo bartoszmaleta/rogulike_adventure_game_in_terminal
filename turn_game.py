@@ -268,4 +268,4 @@ def fighting_boss(character_type):
         break
 
 
-fighting_boss("wizard")
+# fighting_boss("wizard")
