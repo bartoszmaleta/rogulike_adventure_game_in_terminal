@@ -111,6 +111,12 @@ def change_player_position(board, player, key, PLAYER_SCORE):
             if old_board == "@":
                 board[board_y][board_x] = "."
             return player, board, PLAYER_SCORE
+        elif new_board == "^":
+            player[x_or_y_coord] = player[x_or_y_coord] + adjustment
+            PLAYER_SCORE += 10
+            if old_board == "@":
+                board[board_y][board_x] = "."
+            return player, board, PLAYER_SCORE
         elif new_board == ".":
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
             if old_board == "$":
@@ -130,6 +136,7 @@ def change_player_position(board, player, key, PLAYER_SCORE):
         return player, board, PLAYER_SCORE
 
     return player, board, PLAYER_SCORE
+
 
 def copy_board(board):      # NEW, NOT USED
     board = board.copy()
@@ -233,6 +240,17 @@ def main():
                     key = helpers.key_pressed()
                     if key == 'q':
                         is_running = False
+                    elif key == "i":
+                        is_running_inventory = True
+                        while is_running_inventory:
+                            key = helpers.key_pressed()
+                            
+                            helpers.clear_screen()
+                            ui.print_table(player_inv, 'count,desc')
+                            ui.print_text('Press e for exit')
+                            if key == "e":
+                                is_running_inventory = False
+
                     else:
                         if PLAYER_SCORE < 2 and HEALTH > 1:
                             # board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)        # OLD VERSION ---> simple rectangle board out of algorithm
