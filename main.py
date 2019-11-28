@@ -33,8 +33,8 @@ import sys
 #  - writing to file highscores                                                                         NOT DONE! priority
 #  - clean screen during fight                                                                          NOT DONE! priority    
 #  - quiting the game from menu                                                                         NOT DONE! priority
-#  - MENU                                                                                               NOT DONE! priority
-#  - menu showing                                                                                       NOT DONE! priority
+#  - MENU                                                                                               DONE
+#  - menu graphics                                                                                      NOT DONE! priority
 #  - another chest to grab                                                                              NOT DONE
 #  - change appearence of inventory to beaty                                                            NOT DONE! priority
 #  - timer                                                                                              NOT DONE! priority
@@ -161,9 +161,34 @@ def action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH):
             ui.print_table(player_inv, 'count,desc')
             ui.print_text('Press e for exit')
             if key == "e":
-                is_running_inventory = False    
+                is_running_inventory = False
 
+    elif key == "m":
+        is_running_menu = True
+        while is_running_menu:
+            helpers.clear_screen()
+            handle_menu()
+            try:
+                inputs = ui.get_inputs(["Please enter a number: "], "")
+                option = inputs[0]
+                if option == "1":
+                    is_running_menu = False
+                elif option == "0":
+                    sys.exit(0)
+                else:
+                    raise KeyError("There is no such option.")                
+            except KeyError as err:
+                ui.print_error_message(str(err))
+                    
     return player, board, PLAYER_SCORE, HEALTH
+
+
+def handle_menu():
+    options = ["Back to the game"]
+    
+    menu_title = "Main menu"
+    menu_title = ui.return_headline_for_menu_title_(menu_title)
+    ui.print_menu(menu_title, options, "Exit program")
 
 
 def const_position(player, player_x_position, player_y_position):
