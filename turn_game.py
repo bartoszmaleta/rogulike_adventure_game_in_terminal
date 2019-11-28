@@ -98,9 +98,14 @@ def fighting_boss(character_type, health_of_player_in_the_whole_game):
                          "Rain of death": random.randint(10, 35),
                          "Heal": random.randint(20, 25)}
 
-            computer_moves = {"Toxic Bite": random.randint(18, 25),
-                              "Furious ultra mega rage attakck": random.randint(10, 35),
-                              "Heal": random.randint(20, 25)}            
+            computer_moves = {"Toxic Bite": random.randint(5, 10),
+                              "Furious ultra mega rage attakck": random.randint(5, 10),
+                              "Heal": random.randint(10, 15)}   
+
+            # Should be this one working, but commented to make sure we win!
+            # computer_moves = {"Toxic Bite": random.randint(18, 25),
+                            #   "Furious ultra mega rage attakck": random.randint(10, 35),
+                            #   "Heal": random.randint(20, 25)}         
         
             print('---------------------------------------------------------------------------------------------------------------------------------------------------------------------')
             # print(character_type)

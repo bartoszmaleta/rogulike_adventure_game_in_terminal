@@ -38,10 +38,6 @@ PLAYER_SCORE = 0
 WIZARD_ICON = "\U0001F9D9"
 WARRIOR_ICON = "\U0001F482"
 ASSASSIN_ICON = "\U0001F9D5"
-BOARD_WIDTH = 40
-BOARD_HEIGHT = 10
-
-BOARD_WIDTH = 20
 
 
 def create_player():
@@ -222,14 +218,18 @@ def main():
     is_running = True
     while is_running:
         # input_ask = input('Do you want to START a game? (y/n): ')
-        HEALTH = 1
+        HEALTH = 5
         PLAYER_SCORE = 0
 
         ui.print_text("Press any key to START! Press * to exit")
+
         key = helpers.key_pressed()
         if key == '*':
+            # GOODBYE SCREEN
+            sys.exit(0)
             is_running = False
         else:
+            PLAYER_SCORE = 0
             is_running_first_lvl = True
             while is_running_first_lvl:
                 key = helpers.key_pressed()
@@ -250,7 +250,8 @@ def main():
                         ui.display_press_m_to_menu()
                     else:
                         is_running_first_lvl = False
-            if PLAYER_SCORE >= 2 and HEALTH > 0:
+
+            if PLAYER_SCORE >= 2 and HEALTH > 0 and PLAYER_SCORE < 10:
                 is_running_second_lvl = True
                 # position of player in second lvl:
                 PLAYER_START_X = 6
@@ -270,10 +271,19 @@ def main():
                             ui.print_score_of_player(PLAYER_SCORE)       # should show????
                             ui.display_press_m_to_menu()
                             # ui.print_table(player_inv, 'count,desc')          # dont know if in this lvl should show inventory!!!
-                        else:
+                        elif PLAYER_SCORE > 10:
                             is_running_second_lvl = False
+                    
+                        elif HEALTH < 1:       # HEALTH < 1
+                            ui.print_text("You lost")
+                            input_ask = input('Do you want to START AGAIN a game? (y/n): ')
+                            if input_ask == "y":
+                                is_running_third_lvl = False
+                            elif input_ask == "n":
+                                ui.print_text("Good bye")
+                                sys.exit(0)                      
 
-                if PLAYER_SCORE >= 2 and HEALTH > 0:
+                if PLAYER_SCORE >= 4 and HEALTH > 0:
                     is_running_third_lvl = True
                     while is_running_third_lvl:
                         helpers.clear_screen()
@@ -291,6 +301,7 @@ def main():
                             assasin_board = engine.create_board_out_of_file(FILE_PATH_OF_ASSASIN)
                             ui.display_warrior(assasin_board)
                         ui.print_text('Do you want to FIGHT the boss (y/n)')
+                        key = input()
                         if key == "y":
                             helpers.clear_screen()
                             # HOW TO PLAY                        
@@ -299,25 +310,37 @@ def main():
                             while is_running_fight:
                                 turn_game.fighting_boss(character, HEALTH)
                                 is_running_fight = False
-                            is_running_third_lvl
-                        elif key == 'n':
                             is_running_third_lvl = False
-                        is_running_third_lvl = False
-            if HEALTH > 1:
-                ui.print_text('You win!!!!!!!!!!!!!!!!!!!!!!! Congrats')
-                # CREDITS
-                ui.print_text("Produced by .....")
-                break
-                is_running_third_lvl = False
-                is_running_second_lvl = False
-            else:       # HEALTH < 1
+                        elif key == 'n':
+                            # save to file
+                            is_running_third_lvl = False
+                            
+                    if HEALTH > 1:      # This HEALTH should be vaildated after turn_game, but turn_game nothing returns so it cant know who won!
+                        ui.print_text('You win!!!!!!!!!!!!!!!!!!!!!!! Congrats')
+                        # CREDITS
+                        ui.print_text("Produced by .....")
+                        # save to file
+                        # godbye screen
+                        # how to get to main loop with  SCORE = 0
+                        continue
+
+                # if HEALTH < 1:       # HEALTH < 1
+                #     ui.print_text("You lost")
+                #     input_ask = input('Do you want to START AGAIN a game? (y/n): ')
+                #     if input_ask == "y":
+                #         is_running_third_lvl = False
+                #     elif input_ask == "n":
+                #         ui.print_text("Good bye")
+                #         sys.exit(0)                    
+            elif HEALTH < 1:      # HEALTH < 1
                 ui.print_text("You lost")
                 input_ask = input('Do you want to START AGAIN a game? (y/n): ')
                 if input_ask == "y":
                     is_running_third_lvl = False
                 elif input_ask == "n":
                     ui.print_text("Good bye")
-                    sys.exit(0)                    
+                    sys.exit(0)    
+    
 
 
 if __name__ == '__main__':
