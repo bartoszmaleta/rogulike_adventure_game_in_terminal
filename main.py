@@ -3,8 +3,8 @@ import engine as engine
 import ui as ui
 import graphics as graphics
 # import operator
-import inventory_controller as inventory_controller
-import chest as chest
+# import inventory_controller as inventory_controller
+# import chest as chest
 import time
 import copy
 import turn_game as turn_game
@@ -14,10 +14,10 @@ import player_controller as player_controller
 
 #  TODO:
 #  Right now:
-#  - timer                                                                                              NOT DONE! priority
+#  - timer                                                                                              DONE, partially! ONE LOOP
 #  - Icons of attacks in turn game                                                                      NOT DONE! priority
 #  - ui.display_goodbye_logo_and_credits() ---> change credits                                          NOT DONE! priority
-#  - writing to file highscores                                                                         NOT DONE! priority
+#  - writing to file highscores                                                                         DONE, partially! ONE LOOP
 #  - ascii art colour                                                                                   NOT DONE! priority
 #  - start point in beauty position                                                                     NOT DONE! priority
 #  - case sensitive                                                                                     NOT DONE
@@ -70,8 +70,33 @@ def const_position(player, player_x_position, player_y_position):
     return player
 
 
-def main():
+def creating_highscore_file_after_wining(name, PLAYER_SCORE, time_of_the_game_afer_winning):
+    with open('highscores2.txt', 'a') as hs:
+        line_hs_one_str = (
+            str(name) +
+            ' : ' +
+            str(PLAYER_SCORE) +
+            ' : ')
 
+        line_with_time = (time_of_the_game_afer_winning)
+        line_with_time_str = str(line_with_time)
+        hs.write(line_hs_one_str + line_with_time_str + '\n')
+        hs.close()
+
+
+# NOT USED, BECAUSE IT WANTS TABLE AND WE HAVE PURE DATA
+def write_table_to_file(file_name, table):
+    with open(file_name, "w") as file:
+        for record in table:
+            row = ';'.join(record)
+            file.write(row + "\n")
+
+
+def main():
+    # NAME!!!! to make highscore
+    input_name = ui.get_inputs(["name"], "Please provide your ")
+    input_name = input_name[0]
+    # ui.welcoming_text()
     # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
     # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
 
@@ -79,17 +104,17 @@ def main():
     
     choosen_character_number = ui.class_selection_screen()
 
-    FILE_PATH = "map_visual.txt"
-    FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
-    # FILE_PATH_OF_LABIRYNTH = "labirynth.txt"       # "labirynth2.txt" to shortcut to exit
-
     FILE_PATH_OF_GOODBYE_LOGO = "goodbye_logo.txt"
     goodbye_logo_list_of_list = engine.create_board_out_of_file(FILE_PATH_OF_GOODBYE_LOGO)
 
     FILE_PATH_CREDITS = "credits.txt"
     credits_board_list_of_list = engine.create_board_out_of_file(FILE_PATH_CREDITS)
 
+    FILE_PATH_OF_YOU_WON = "you_won.txt"
+    you_won_logo_list_of_list = engine.create_board_out_of_file(FILE_PATH_OF_YOU_WON)
+
     player = create_player()
+    player_inv = player["inventory"]
     
     if choosen_character_number == "1":
         character = 'wizard'
@@ -100,9 +125,10 @@ def main():
     elif choosen_character_number == "5":
         character = 'assasssin'
         player["icon"] = ASSASSIN_ICON
-        
-    player_inv = player["inventory"]
 
+    FILE_PATH = "map_visual.txt"
+    FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
+    # FILE_PATH_OF_LABIRYNTH = "labirynth.txt"       # "labirynth2.txt" to shortcut to exit
     board_from_file = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
     board = copy.deepcopy(board_from_file) 
 
@@ -129,6 +155,7 @@ def main():
             player = const_position(player, PLAYER_START_X, PLAYER_START_Y)  
             
             while is_running_first_lvl:
+                starttime = time.time()
                 key = helpers.key_pressed()
                 if key == 'q':
                     is_running = False
@@ -179,6 +206,7 @@ def main():
                                 is_running_third_lvl = False
                             elif input_ask == "n":
                                 helpers.clear_screen()
+
                                 ui.display_goodbye_logo(goodbye_logo_list_of_list)
                                 ui.display_credits(credits_board_list_of_list)  
                                 sys.exit(0)                      
@@ -210,14 +238,21 @@ def main():
                             while is_running_fight:
                                 turn_game.fighting_boss(character, HEALTH)
                                 is_running_fight = False
+                        
+                                # creates time after game, and highscores2.txt
+                                time_after_the_game = helpers.time_after_the_game(starttime)
+                                creating_highscore_file_after_wining(input_name, PLAYER_SCORE, time_after_the_game)
                             is_running_third_lvl = False
                         elif key == 'n':
                             # save to file
                             is_running_third_lvl = False
                             
                     if HEALTH > 1:      # This HEALTH should be vaildated after turn_game, but turn_game nothing returns so it cant know who won!
-                        ui.print_text('You win!!!!!!!!!!!!!!!!!!!!!!! Congrats')
+                        helpers.clear_screen()
                         # save to file
+                        ui.display_you_won_logo(you_won_logo_list_of_list)
+                        time.sleep(4)
+                        helpers.clear_screen()
                         ui.display_goodbye_logo(goodbye_logo_list_of_list)
                         ui.display_credits(credits_board_list_of_list)
 
