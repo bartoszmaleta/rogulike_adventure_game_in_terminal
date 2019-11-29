@@ -22,7 +22,7 @@ def action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH):
     player_x = player["x"]
     player_y = player["y"]
     player_inv = player["inventory"]
-    player_icon = "\U0001F9D9"
+    player_icon = player["icon"]
     BLAST_ICON = "\U0001F4A5"
 
     if key in "wsad":
@@ -73,7 +73,7 @@ def action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH):
         elif new_player_position_on_board == "^":
             player[x_or_y_coord] = player[x_or_y_coord] + adjustment
             PLAYER_SCORE += 10
-            if old_player_position_on_board == "@":
+            if old_player_position_on_board == player_icon:
                 board[board_y][board_x] = "."
             return player, board, PLAYER_SCORE, HEALTH
         elif new_player_position_on_board == ".":
