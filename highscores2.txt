@@ -4,3 +4,4 @@ Bartosz : 12 : 19.74
 Bartosz : 12 : 23.33
 Bartosz : 12 : 14.18
 Bartosz : 12 : 13.12
+Bartosz : 12 : 34.62

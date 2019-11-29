@@ -80,9 +80,9 @@ def fighting_boss(character_type, health_of_player_in_the_whole_game):
             miss = False  # determine if the chosen move will miss.
 
             # create a dictionary of the possible moves and randomly select the damage it does when selected
-            moves = {"Deadpunch": random.randint(18, 25),
-                     "Fireball": random.randint(10, 35),
-                     "Heal": random.randint(20, 25)}
+            # moves = {"Deadpunch": random.randint(18, 25),
+            #          "Fireball": random.randint(10, 35),
+            #          "Heal": random.randint(20, 25)}
             
             if character_type == "wizard":
                 moves = {"Fireball": random.randint(18, 25),
@@ -112,8 +112,9 @@ def fighting_boss(character_type, health_of_player_in_the_whole_game):
 
             if player_turn:
                 print('----------------- YOUR TURN -----------------------------------------------------------------------------------------------------------------------------------------')
-
-                print("\nPlease select your move:\n1. Deadpunch (Deal damage between 18-25)\n2. Fireball (Deal damage between 10-35)\n3. Heal (Restore between 20-25 health)\n")
+                first_element_of_moves_dict = list(moves.keys())[0]
+                second_element_of_moves_dict = list(moves.keys())[1]
+                print("\nPlease select your move:\n1. {} (Deal damage between 18-25)\n2. {} (Deal damage between 10-35)\n3. Heal (Restore between 20-25 health)\n".format(first_element_of_moves_dict, second_element_of_moves_dict))
 
                 player_move = input("> ").lower()
 
@@ -279,3 +280,7 @@ def fighting_boss(character_type, health_of_player_in_the_whole_game):
 # print(fighting_boss("wizard", 1))
 
 # def win_or_lose(health_of_player_in_the_whole_game)
+
+
+health_of_player_in_the_whole_game = 0
+fighting_boss("wizard", health_of_player_in_the_whole_game)
