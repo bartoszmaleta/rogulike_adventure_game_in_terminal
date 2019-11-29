@@ -282,5 +282,5 @@ def fighting_boss(character_type, health_of_player_in_the_whole_game):
 # def win_or_lose(health_of_player_in_the_whole_game)
 
 
-health_of_player_in_the_whole_game = 0
-fighting_boss("wizard", health_of_player_in_the_whole_game)
+#health_of_player_in_the_whole_game = 0
+#fighting_boss("wizard", health_of_player_in_the_whole_game)
