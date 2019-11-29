@@ -1,3 +1,6 @@
+import time as time
+
+
 def key_pressed():
     import sys
 
@@ -32,3 +35,13 @@ def clear_screen():
         os.system('cls')
     else:
         os.system('clear')
+
+
+def time_after_the_game(starttime):
+    time_after_loosing = time.time()
+    time_of_the_game_no_round_after_losing = time_after_loosing - starttime
+    time_of_the_game_after_losing = round(time_of_the_game_no_round_after_losing, 2)
+    # print('Your time in this round: ', time_of_the_game_after_losing)
+    # datetime_object_after_losing = time.asctime(time.localtime(time.time()))
+
+    return time_of_the_game_after_losing

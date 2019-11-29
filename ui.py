@@ -469,7 +469,7 @@ def get_inputs(list_labels, title):
             [<user_input_1>, <user_input_2>, <user_input_3>]
     """
     print()
-    print(title)
+    print(title, end='')
     inputs = []
     for label in list_labels:
         print(label)
@@ -577,6 +577,24 @@ def display_menu_logo(menu_logo):
         print()
 
 
+def display_you_won_logo(you_won_logo):
+    list_with_chars_to_colour = "Youwn;Gdjb'"
+    for row in you_won_logo:
+        # print(''.join(row))
+        for element in row:
+            if element in list_with_chars_to_colour:
+                print('\033[1;32;49m{}\033[0;37;49m'.format(element), end="")
+            else:
+                print('\033[0;37;49m{}'.format(element), end="")
+        print()
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
+
+
 def display_goodbye_logo(goodbye_logo):
     list_with_chars_to_colour = "8.P'"
     for row in goodbye_logo:
@@ -602,7 +620,7 @@ def display_credits(credits):
         # print(''.join(row))
         for element in row:
             if element in list_with_chars_to_colour:
-                print('\033[1;32;49m{}\033[0;37;49m'.format(element), end="")
+                print('\033[1;31;49m{}\033[0;37;49m'.format(element), end="")
             else:
                 print('\033[0;37;49m{}'.format(element), end="")
         print()
@@ -657,3 +675,15 @@ def display_press_m_to_menu():
     print(("-" * len_text) + "----")
     print("| Press m to go to menu |")
     print(("-" * len_text) + "----")
+
+
+def welcoming_text():
+    print()
+    welcome_text = '\033[1;33;49m Welcome in the HANGMAN!'
+    welcome_text_alignment = welcome_text.center(100)
+    copyrights_text = '\033[1;32;49m Michał Z., Bartosz M., Przemysław B.'
+    copyrights_alignment = copyrights_text.center(100)
+    print(welcome_text_alignment)
+    print(copyrights_alignment)
+    print('\033[0;37;49m \n')
+    time.sleep(5)         # change to 5  
