@@ -11,33 +11,32 @@ import turn_game as turn_game
 import sys
 # import map_manager as map_manager
 
-# # TODO:
+#  TODO:
 #  Right now:
-
-#  - Icons of attacks in turn game                                                  NOT DONE
-#  - delete one loop                                                                NOT DONE OR NOT! MAYBE ANOTHER SCREEN
-#  - HEALTH                                                                         DONE, ALMOST!! NOT FOR BATTLE
-#  - Goodbye screen!!!!                                                             NOT DONE! priority
-#  - case sensitive                                                                 NOT DONE
-
-# # TODO:
-#  Further:
-#  - ifinite game                                                                                       DONE, ALMOST! EXCEPT FIGHTING
-#  - ascii art colour                                                                                   NOT DONE
-#  - writing to file highscores                                                                         NOT DONE! priority
-#  - clean screen during fight                                                                          NOT DONE! priority    
-#  - another chest to grab                                                                              NOT DONE
-#  - change appearence of inventory to beaty                                                            NOT DONE! priority
 #  - timer                                                                                              NOT DONE! priority
+#  - Icons of attacks in turn game                                                                      NOT DONE! priority
+#  - ui.display_goodbye_logo_and_credits() ---> change credits                                          NOT DONE! priority
+#  - writing to file highscores                                                                         NOT DONE! priority
+#  - ascii art colour                                                                                   NOT DONE! priority
+#  - start point in beauty position                                                                     NOT DONE! priority
+#  - case sensitive                                                                                     NOT DONE
 
 
-PLAYER_START_X = 4
-PLAYER_START_Y = 12
+#  TODO:
+#  Further:
+#  - clean screen during fight                                                                          NOT DONE! priority    
+#  - ifinite game                                                                                       DONE, ALMOST! EXCEPT FIGHTING! When lose program breaks!
+#  - HEALTH                                                                                             DONE, ALMOST!! NOT FOR BATTLE
+#  - another chest to grab                                                                              NOT DONE
+
+
 PLAYER_INV = {'healing potions': 0, 'magic mushrooms': 0, 'anti-alien cream': 0, 'shield': 0, 'weapon': 0, 'old map': 0}
 PLAYER_SCORE = 0
 WIZARD_ICON = "\U0001F9D9"
 WARRIOR_ICON = "\U0001F482"
 ASSASSIN_ICON = "\U0001F9D5"
+PLAYER_START_X = 4
+PLAYER_START_Y = 12
 
 
 def create_player():
@@ -57,6 +56,12 @@ def create_player():
 
 
 def action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH):
+    FILE_PATH_OF_GOODBYE_LOGO = "goodbye_logo.txt"
+    goodbye_logo_list_of_list = engine.create_board_out_of_file(FILE_PATH_OF_GOODBYE_LOGO)
+
+    FILE_PATH_CREDITS = "credits.txt"
+    credits_board_list_of_list = engine.create_board_out_of_file(FILE_PATH_CREDITS)
+
     player_x = player["x"]
     player_y = player["y"]
     player_inv = player["inventory"]
@@ -161,6 +166,9 @@ def action_after_key_pressed(board, player, key, PLAYER_SCORE, HEALTH):
                 if key == "1":
                     is_running_menu = False
                 elif key == "0":
+                    helpers.clear_screen()
+                    ui.display_goodbye_logo(goodbye_logo_list_of_list)
+                    ui.display_credits(credits_board_list_of_list)  
                     sys.exit(0)
                 else:
                     raise KeyError("There is no such option.")                
@@ -195,7 +203,14 @@ def main():
 
     FILE_PATH = "map_visual.txt"
     FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       
-    # FILE_PATH_OF_LABIRYNTH = "labirynth2.txt"       # "labirynth2.txt" to shortcut to exit
+    # FILE_PATH_OF_LABIRYNTH = "labirynth.txt"       # "labirynth2.txt" to shortcut to exit
+
+    FILE_PATH_OF_GOODBYE_LOGO = "goodbye_logo.txt"
+    goodbye_logo_list_of_list = engine.create_board_out_of_file(FILE_PATH_OF_GOODBYE_LOGO)
+
+    FILE_PATH_CREDITS = "credits.txt"
+    credits_board_list_of_list = engine.create_board_out_of_file(FILE_PATH_CREDITS)
+
     player = create_player()
     
     if choosen_character_number == "1":
@@ -285,7 +300,9 @@ def main():
                             if input_ask == "y":
                                 is_running_third_lvl = False
                             elif input_ask == "n":
-                                ui.print_text("Good bye")
+                                helpers.clear_screen()
+                                ui.display_goodbye_logo(goodbye_logo_list_of_list)
+                                ui.display_credits(credits_board_list_of_list)  
                                 sys.exit(0)                      
 
                 if PLAYER_SCORE >= 4 and HEALTH > 0:
@@ -323,9 +340,8 @@ def main():
                     if HEALTH > 1:      # This HEALTH should be vaildated after turn_game, but turn_game nothing returns so it cant know who won!
                         ui.print_text('You win!!!!!!!!!!!!!!!!!!!!!!! Congrats')
                         # save to file
-                        ui.display_goodbye_logo()
-                        ui.print_text("Produced by .....")
-                        # CREDITS
+                        ui.display_goodbye_logo(goodbye_logo_list_of_list)
+                        ui.display_credits(credits_board_list_of_list)
 
                         board_from_file = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
                         board = copy.deepcopy(board_from_file)
@@ -340,12 +356,19 @@ def main():
                 #         ui.print_text("Good bye")
                 #         sys.exit(0)                    
             elif HEALTH < 1:      # HEALTH < 1
+                ui.blank_line()
+                helpers.clear_screen()
                 ui.print_text("You lost")
                 input_ask = input('Do you want to START AGAIN a game? (y/n): ')
                 if input_ask == "y":
+                    board_from_file = engine.create_board_out_of_file(FILE_PATH)              # ACTUAL VERSION ---> WORKS, BUT IT IS FROM FILE, AND DONT HIDE DOLLAR SIGN
+                    board = copy.deepcopy(board_from_file)
                     is_running_third_lvl = False
+                    continue
                 elif input_ask == "n":
-                    ui.print_text("Good bye")
+                    helpers.clear_screen()
+                    ui.display_goodbye_logo(goodbye_logo_list_of_list)
+                    ui.display_credits(credits_board_list_of_list)             
                     sys.exit(0)    
     
 

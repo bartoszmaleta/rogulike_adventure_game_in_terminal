@@ -2,11 +2,8 @@ import helpers as helpers
 import graphics as graphics
 import os
 import time
-import operator
 import engine as engine
 from collections import OrderedDict
-
-
 
 
 def display_board(board):
@@ -90,7 +87,7 @@ def print_character_info(asciiart, info):
 
 def show_assassin_info():
     asciiart = graphics.get_assassin_asciiart()
-    info ='''
+    info = '''
     Assassin is a silent killer, he has an ability to sneak and to kill enemy out of hiding. He usually wears
     light clothes, which are blending with the surroundings and a carries a dagger as his weapon. '''
     print("")
@@ -157,15 +154,24 @@ def print_how_to_show_inventory():
     inventory_ascii = graphics.inventory_ascii()
     print(inventory_ascii)
 
+
 def print_inventory_and_wait(player_inv):
     os.system("clear")
     print_table(player_inv)
     input("ENTER to go back")
 
+
 def add_to_string(string, to_add):
     return string + to_add + "\n"
 
+
 def print_table(player_inv, count=None):
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
+
     longest_left = len("item") + 2
     longest_right = len("count") + 3
 
@@ -186,7 +192,7 @@ def print_table(player_inv, count=None):
     separator_main = "=" * main_middle_length
     separator_top = "/" + separator_main + "\\"
     separator_mid = "|" + separator_main + "|"
-    separator_bot = "\\" + separator_main.replace("=","-") + "/"
+    separator_bot = "\\" + separator_main.replace("=", "-") + "/"
 
     table_string = ""
     table_string = add_to_string(table_string, separator_top)
@@ -240,7 +246,9 @@ def print_table(player_inv, count=None):
             print()
         else:
             print(sign, end="")
-
+    blank_line()
+    blank_line()
+    blank_line()
 
 
 def blank_line():
@@ -579,32 +587,50 @@ def display_goodbye_logo(goodbye_logo):
             else:
                 print('\033[0;37;49m{}'.format(element), end="")
         print()
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
+    blank_line()
 
 
 # TODO: make it!!!!!
 def display_credits(credits):
-    list_with_chars_to_colour = "8.P'"      # TODO
+    list_with_chars_to_colour = "x"
     for row in credits:
         # print(''.join(row))
         for element in row:
             if element in list_with_chars_to_colour:
-                print('\033[1;31;49m{}\033[0;37;49m'.format(element), end="")
-            # elif element == "'":
-                # print('\033[0;37;49m{}'.format(element), end="")
-            # elif element == ".":
-                # print('\033[0;34;44m{}'.format(element), end="")
-            
-            # # elif element == "o":
-                # # print('\033[0;34;44m{}'.format(element), end="")
-            # elif element == "P":
-                # print('\033[1;31;49m{}'.format(element), end="")
-            # elif element == "U":
-                # print('\033[0;35;49m{}'.format(element), end="")
-            # elif element == "D":
-                # print('\033[0;35;49m{}'.format(element), end="")
+                print('\033[1;32;49m{}\033[0;37;49m'.format(element), end="")
             else:
                 print('\033[0;37;49m{}'.format(element), end="")
         print()
+
+
+# def display_credits(credits):
+#     list_with_chars_to_colour = "8.P'"      # TODO
+#     for row in credits:
+#         print(''.join(row))
+#         for element in row:
+#             if element in list_with_chars_to_colour:
+#                 print('\033[1;31;49m{}\033[0;37;49m'.format(element), end="")
+#             elif element == "'":
+#                 print('\033[0;37;49m{}'.format(element), end="")
+#             elif element == ".":
+#                 print('\033[0;34;44m{}'.format(element), end="")
+            
+#             # elif element == "o":
+#                 # print('\033[0;34;44m{}'.format(element), end="")
+#             elif element == "P":
+#                 print('\033[1;31;49m{}'.format(element), end="")
+#             elif element == "U":
+#                 print('\033[0;35;49m{}'.format(element), end="")
+#             elif element == "D":
+#                 print('\033[0;35;49m{}'.format(element), end="")
+#             else:
+#                 print('\033[0;37;49m{}'.format(element), end="")
+#         print()
 
 
 # \033[0;34m    -------------->  blue
