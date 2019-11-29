@@ -94,9 +94,14 @@ def write_table_to_file(file_name, table):
 
 def main():
     # NAME!!!! to make highscore
-    #ui.welcoming_text()
-    ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
-    ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
+    # ui.welcoming_text()
+    FILE_PATH_OF_TITLE_LOGO = "title_logo.txt"
+    logo_of_game_list_of_list = engine.create_board_out_of_file(FILE_PATH_OF_TITLE_LOGO)
+
+    # ui.print_introduction_screen(graphics.introduction_screen(), speed=0.05)
+    # ui.print_introduction_screen(graphics.logo_of_game(), speed=0.005)
+    ui.display_logo_title(logo_of_game_list_of_list)
+
     input_name = ui.get_inputs(["name"], "Please provide your ")
     input_name = input_name[0]
     # choosen_character_number = graphics.choosing_character()

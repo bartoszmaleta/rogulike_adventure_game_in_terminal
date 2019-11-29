@@ -6,6 +6,21 @@ import engine as engine
 from collections import OrderedDict
 
 
+def display_logo_title(board):
+    '''
+    Displays complete game board on the screen
+
+
+    Returns:
+    Nothing
+    '''
+    helpers.clear_screen()
+
+    for row in board:
+        # this one could be one line!!!!! :
+        print(''.join(row))
+
+
 def display_board(board):
     '''
     Displays complete game board on the screen
@@ -668,8 +683,6 @@ def display_credits(credits):
 # TESTING COLOURS
 
 def display_press_m_to_menu():
-    blank_line()
-    blank_line()
     text = "Press m to go to menu"
     len_text = len(text)
     print(("-" * len_text) + "----")
